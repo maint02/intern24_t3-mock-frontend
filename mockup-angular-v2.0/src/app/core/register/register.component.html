@@ -1,0 +1,138 @@
+<div class="blankpage-form-field form-register">
+    <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
+        <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
+            <img src="/assets/img/itsol_logo_small.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
+            <span class="page-logo-text mr-1">ITSOL</span>
+            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+        </a>
+    </div>
+    <div class="card p-8 border-top-left-radius-0 border-top-right-radius-0 ">
+        <form class="form" role="form" (ngSubmit)="doRegister()" [formGroup]="registerForm">
+            <div class="form-1to1">
+                <div class="form-group form-left">
+                    <label class="form-label" for="username">Tên đăng nhập
+                        <div class="notnull">(*)</div>
+                    </label>
+                    <input type="text" id="username" minlength="8" maxlength="15" name="username" formControlName="username"
+                           class="form-control" placeholder="Nhập tên tài khoản">
+                </div>
+                <div class="form-group form-right">
+                    <label class="form-label" for="email">Email
+                        <div class="notnull">(*)</div>
+                    </label>
+                    <input type="email"
+                           id="email" name="email" formControlName="email"
+                           class="form-control" placeholder="Nhập tài khoản email">
+                </div>
+            </div>
+
+            <!--                <div class="form-group form-right">-->
+            <!--                    <label class="form-label" for="password">Mật khẩu-->
+            <!--                        <div class="notnull">(*)</div>-->
+            <!--                    </label>-->
+            <!--                    <input type="password" id="password" name="password" formControlName="password"-->
+            <!--                           class="form-control" placeholder="Nhập mật khẩu">-->
+            <!--                </div>-->
+            <div class="form-1to1">
+                <div class="form-group form-left">
+                    <label class="form-label " for="fullName">Họ tên
+                        <div class="notnull">(*)</div>
+                    </label>
+                    <input type="text" id="fullName" name="fullName" formControlName="fullName"
+                           class="form-control" placeholder="Nhập họ và tên">
+                </div>
+                <div class="form-group form-right">
+                    <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                    <input type="text" id="phoneNumber" minlength="10" maxlength="10" name="phoneNumber"
+                           formControlName="phoneNumber"
+                           class="form-control" placeholder="Nhập số điện thoại">
+                </div>
+            </div>
+            <div class="form-1to1">
+                <div class="form-group form-left">
+                    <label class="form-label" for="address">Địa chỉ</label>
+                    <input type="text" id="address" name="address" formControlName="address"
+                           class="form-control" placeholder="Nhập địa chỉ">
+                </div>
+                <div class="form-group form-right">
+                    <label class="form-label" for="skypeAccount">Skype</label>
+                    <input type="text" id="skypeAccount" name="skypeAccount" formControlName="skypeAccount"
+                           class="form-control" placeholder="Nhập tài khoản skype">
+                </div>
+            </div>
+            <div class="form-1to1">
+                <!--            birthday để lịch-->
+                <div class="form-group form-left">
+                    <label class="form-label" for="birthday">Ngày sinh
+                        <div class="notnull">(*)</div>
+                    </label>
+                    <input type="date" id="birthday" name="birthday" formControlName="birthday"
+                           class="form-control" placeholder="01/01/2000">
+                </div>
+                <!--            usertype  -->
+                <div class=" form-group form-right">
+                    <label class="form-label" for="userType">Loại tài khoản
+                        <div class="notnull">(*)</div>
+                    </label>
+                    <div class="custom-checkbox-circle">
+                        <label class="radio-inline p-2"><input type="radio" name="optradio" checked>Nhân viên</label>
+                        <label class="radio-inline p-2"><input type="radio" name="optradio">Thử việc</label>
+                        <label class="radio-inline p-2 "><input type="radio" name="optradio">Sinh viên</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-1to1">
+                <div class="form-group form-left">
+                    <label class="form-label" for="university">Học vấn</label>
+                    <input type="text" id="university" name="university" formControlName="university"
+                           class="form-control" placeholder="Nhập trường đại học">
+                </div>
+                <div class="form-group form-right">
+                    <label class="form-label" for="graduatedYear">Năm tốt nghiệp đại học</label>
+                    <input type="number" min="1970" max={currentYear} id="graduatedYear" name="graduatedYear"
+                           formControlName="graduatedYear"
+                           class="form-control" placeholder="Nhập năm tốt nghiệp">
+                </div>
+            </div>
+            <div class="form-1to1">
+                <div>
+                    <div class="notnull-left">(*)</div>
+                    : Thông tin bắt buộc điền
+                </div>
+                <button type="submit" class="btn btn-default float-right">Đăng ký</button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+<video poster="/assets/img/backgrounds/clouds.png" id="bgvid" playsinline autoplay muted loop>
+    <source src="/assets/media/video/cc.webm" type="video/webm">
+    <source src="/assets/media/video/cc.mp4" type="video/mp4">
+</video>
+<!-- base vendor bundle:
+     DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
+                + pace.js (recommended)
+                + jquery.js (core)
+                + jquery-ui-cust.js (core)
+                + popper.js (core)
+                + bootstrap.js (core)
+                + slimscroll.js (extension)
+                + app.navigation.js (core)
+                + ba-throttle-debounce.js (core)
+                + waves.js (extension)
+                + smartpanels.js (extension)
+                + src/../jquery-snippets.js (core) -->
+<script src="js/vendors.bundle.js"></script>
+<script src="js/app.bundle.js"></script>
+<!-- Page related scripts -->
+<ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-scale-multiple"
+>
+    <p style="font-size: 1em; color: white">Kiếm tra thông tin tài khoản...</p>
+</ngx-spinner>
+
+

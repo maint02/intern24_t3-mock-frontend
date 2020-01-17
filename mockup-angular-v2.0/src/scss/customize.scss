@@ -1,0 +1,213 @@
+/*.page-content {*/
+/*    background-color: white !important;*/
+/*}*/
+
+.k-header.k-grid-toolbar, .k-pager-wrap.k-grid-pager {
+  background-color: white !important;
+}
+
+kendo-grid {
+  font-size: 0.875rem !important;
+}
+
+kendo-grid a > i {
+  font-size: 1.3rem !important;
+}
+
+.k-grid-group-header {
+  padding: 4px 12px;
+}
+
+.k-grid-content.k-virtual-content:not(.mobile-detected)::-webkit-scrollbar-thumb {
+  background-color: #838383;
+}
+
+.kendo-header-cell {
+  text-align: center !important;
+}
+
+.kendo-thc-header-black-white {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+.kendo-thc-header-light-grey-black {
+  background-color: #dbdbdb;
+  color: #000000;
+}
+.kendo-thc-header-grey-yellow {
+  background-color: #404040;
+  color: #FFFF00;
+}
+.kendo-thc-header-brown-white {
+   background-color: #833c0c;
+   color: #FFFFFF;
+ }
+.kendo-thc-header-white-blue {
+  background-color: #FFFFFF;
+  color: #0070C0;
+}
+
+.kendo-thc-header-light-green-red {
+  background-color: #C6E0B4;
+  color: #FF0000;
+}
+
+
+.refresh_icon_sm {
+  font-weight: bold;
+  color: #ff6358;
+  cursor: pointer;
+}
+
+input[type="date"] {
+  position: relative;
+  padding: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type="date"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: 'Font Awesome 5 Pro';
+  content: '\f073';
+  /* This is the calendar icon in FontAwesome */
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+input[type="time"] {
+  position: relative;
+  padding: 10px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type="time"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: 'Font Awesome 5 Pro';
+  content: '\f017';
+  /* This is the calendar icon in FontAwesome */
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+/*.text-success {*/
+/*    color: #28a745 !important;*/
+/*}*/
+
+/*.text-danger {*/
+/*    color: #dc3545 !important;*/
+/*}*/
+
+.modal-header {
+  background-color: red;
+  color: white;
+  padding: 0.75rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.nav-menu li > a:not(:hover :active :focus) {
+  color: lightgrey !important;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.sb-info {
+  border-radius: unset !important;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 0.1em solid grey;
+  padding-left: 0;
+  color: darkgray;
+  font-weight: 500
+}
+
+.sb-info-title {
+  color: blue;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+form[name='sb-info'] .form-group {
+  margin-bottom: 0 !important;
+}
+
+.search-box-header {
+  cursor: pointer;
+}
+
+.selected-items {
+  margin-top: 1rem;
+}
+
+.selected-items i {
+  font-size: 1.3rem;
+}
+
+.modal-body .panel {
+  margin-bottom: 0 !important;
+}
+
+.modal-dang-ky-di-muon {
+  .modal-dialog {
+    min-width: 600px;
+  }
+}
+
+.popup-with-600 {
+  .modal-dialog {
+    min-width: 600px;
+  }
+}
+
+
+.cs-sb-validate-tooltip {
+  background-color: #ff4b46;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 110%;
+  left: 1rem;
+  margin-right: -60px;
+  font-size: 0.85em;
+}
+
+.cs-sb-validate-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 10%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #ff4b46 transparent;
+}
+

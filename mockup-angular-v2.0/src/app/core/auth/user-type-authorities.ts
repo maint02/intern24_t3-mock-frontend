@@ -1,0 +1,19 @@
+export const USER_TYPE_AUTHORITIES = {
+    // "0": ['ROLE_NHANVIEN'],
+    // "2": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    // "3": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    // "4": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    // "1": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+
+    // 0: 'ROLE_ANONYMOUS',
+    // 1: 'ROLE_MEMBER',
+    // 2: 'ROLE_LEADER',
+    // 3: 'ROLE_MANAGER',
+    // 4: 'ROLE_HR',
+
+    '0': ['ROLE_MEMBER'],
+    '2': ['ROLE_MEMBER', 'ROLE_LEADER', 'ROLE_HR', 'ROLE_MANAGER'],
+    '3': ['ROLE_MEMBER', 'ROLE_LEADER', 'ROLE_HR', 'ROLE_MANAGER'],
+    '4': ['ROLE_MEMBER', 'ROLE_LEADER', 'ROLE_HR', 'ROLE_MANAGER'],
+    '1': ['ROLE_MEMBER', 'ROLE_LEADER', 'ROLE_HR', 'ROLE_MANAGER'],
+};

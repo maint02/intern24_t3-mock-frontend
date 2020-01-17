@@ -1,0 +1,76 @@
+<div class="blankpage-form-field">
+    <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
+        <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
+            <img src="/assets/img/itsol_logo_small.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
+            <span class="page-logo-text mr-1">ITSOL</span>
+            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+        </a>
+    </div>
+    <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
+        <form class="form" role="form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="username">Tài khoản</label>
+                <input type="text" id="username" name="username" formControlName="username"
+                       class="form-control" placeholder="Nhập tên tài khoản">
+                <!--                <span class="help-block">-->
+                <!--                            Your unique username to app-->
+                <!--                        </span>-->
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" formControlName="password"
+                       class="form-control" placeholder="Nhập mật khẩu">
+                <!--                <span class="help-block">-->
+                <!--                            Your password-->
+                <!--                        </span>-->
+            </div>
+                        <div class="form-group text-left">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"
+                                       formControlName="rememberMe">
+                                <label class="custom-control-label" for="rememberMe"> Remember me </label>
+                            </div>
+                        </div>
+            <button type="submit" class="btn btn-default float-right">Đăng nhập</button>
+        </form>
+    </div>
+    <div class="blankpage-footer text-center">
+        <a href="#"><strong>Quên mật khẩu</strong></a> | <a href="/register"><strong>Đăng kí tài khoản</strong></a>
+    </div>
+</div>
+<!--<div class="login-footer p-2">-->
+<!--    <div class="row">-->
+<!--        <div class="col col-sm-12 text-center">-->
+<!--            <i><strong>Hệ thống:</strong> You were logged out from 198.164.246.1 on Saturday, March, 2017 at-->
+<!--                10.56AM</i>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<video poster="/assets/img/backgrounds/clouds.png" id="bgvid" playsinline autoplay muted loop>
+    <source src="/assets/media/video/cc.webm" type="video/webm">
+    <source src="/assets/media/video/cc.mp4" type="video/mp4">
+</video>
+<!-- base vendor bundle:
+     DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
+                + pace.js (recommended)
+                + jquery.js (core)
+                + jquery-ui-cust.js (core)
+                + popper.js (core)
+                + bootstrap.js (core)
+                + slimscroll.js (extension)
+                + app.navigation.js (core)
+                + ba-throttle-debounce.js (core)
+                + waves.js (extension)
+                + smartpanels.js (extension)
+                + src/../jquery-snippets.js (core) -->
+<script src="js/vendors.bundle.js"></script>
+<script src="js/app.bundle.js"></script>
+<!-- Page related scripts -->
+<ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-scale-multiple"
+>
+    <p style="font-size: 1em; color: white">Kiếm tra thông tin tài khoản...</p>
+</ngx-spinner>

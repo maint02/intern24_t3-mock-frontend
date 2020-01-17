@@ -1,0 +1,37 @@
+#sb-dropdown-tree {
+  position: relative;
+  width: 100%;
+}
+
+#sb-dropdown-tree kendo-popup {
+  top: 0 !important;
+  left: 0 !important;
+  position: absolute;
+}
+
+kendo-treeview {
+  height: 40em;
+}
+
+.sb-dropdown-tree-filter {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.sb-dropdown-tree-filter input {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.sb-dropdown-tree-header {
+  width: 100%;
+}
+
+.sb-dropdown-tree-header .k-dropdown-wrap .k-clear-value {
+  right: 1.5em !important;
+}
+
+.k-dropdown .k-dropdown-wrap {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}

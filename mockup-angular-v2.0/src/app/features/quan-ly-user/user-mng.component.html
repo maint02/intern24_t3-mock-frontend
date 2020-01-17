@@ -1,0 +1,49 @@
+<div class="subheader">
+    <h1 class="subheader-title">
+        Danh sách user các đơn vị
+    </h1>
+</div>
+<div class="panel">
+    <div class="card-body">
+        <div class="form-group row" style="padding-left: 15px; padding-right: 15px">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label class="col-md-4 col-sm-6 col-form-label form-label">Họ và tên</label>
+                    <div class="col-md-8 col-sm-6">
+                        <input type="text" placeholder="Nhập họ và tên" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-sm-6 col-form-label form-label">Số điện thoại</label>
+                    <div class="col-md-8 col-sm-6">
+                        <input type="text" placeholder="Nhập số điện thoại" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label class="col-md-4 col-sm-6 col-form-label form-label">CMND/Hộ chiếu</label>
+                    <div class="col-md-8 col-sm-6">
+                        <input type="text" placeholder="Nhập CMND/Hộ chiếu" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-sm-6 col-form-label form-label">Trạng thái</label>
+                    <div class="col-md-8 col-sm-6">
+                        <select class="form-control" style="width: 100%">
+                            <option [value]="null"> -- Tất cả --</option>
+                            <option *ngFor="let item of status" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row text-center">
+            <div class="col-md-12">
+                <button type="button" (click)="doSearch()" class="btn btn-info">
+                    <i class="far fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

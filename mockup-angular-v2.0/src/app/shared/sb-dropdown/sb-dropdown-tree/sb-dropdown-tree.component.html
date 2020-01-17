@@ -1,0 +1,51 @@
+<div (clickOutside)="onClickOut()" class="w-100">
+    <div class="sb-dropdown-tree-header k-widget k-dropdown k-header">
+        <span #anchor (click)="onToggle()" class="k-dropdown-wrap k-state-default">
+            <span class="k-input">
+                <span *ngIf="!selectedItem" class="disabled">
+                        Chọn đơn vị
+                </span>
+                <span *ngIf="selectedItem">
+                      {{selectedItem.text}}
+                </span>
+
+           </span>
+            <span (click)="clearSelectedKeys()" class="k-icon k-clear-value k-i-close" role="button" tabindex="-1"
+                  title="clear">
+            </span>
+           <span class="k-select">
+               <span class="k-icon k-i-arrow-s">
+                </span>
+           </span>
+        </span>
+    </div>
+    <div id="sb-dropdown-tree">
+        <kendo-popup *ngIf="show" [anchor]="anchor" class="w-100">
+            <div class="sb-dropdown-tree-filter">
+                <input #category (keyup)='onkeyup(category.value)' name="dropdown-tree-input" placeholder="Tìm đơn vị"
+                       type="text">
+            </div>
+            <kendo-treeview
+                    (collapse)="handleCollapse($event)"
+                    (expand)="handleExpand($event)"
+                    (selectionChange)="onSelectionChange($event)"
+                    [(selectedKeys)]="selectedKeys"
+                    [children]="fetchChildren"
+                    [hasChildren]="hasChildren"
+                    [isExpanded]="isExpanded"
+                    [nodes]="parsedData"
+                    [selectBy]="'text'"
+                    kendoTreeViewExpandable
+                    kendoTreeViewHierarchyBinding
+                    kendoTreeViewSelectable
+                    textField="text"
+            >
+                <ng-template kendoTreeViewNodeTemplate let-dataItem>
+                    <span [ngClass]="iconClass(dataItem)"></span>
+                    {{dataItem.text}}
+                </ng-template>
+
+            </kendo-treeview>
+        </kendo-popup>
+    </div>
+</div>
