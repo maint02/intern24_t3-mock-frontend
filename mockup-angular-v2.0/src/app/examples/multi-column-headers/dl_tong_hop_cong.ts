@@ -1,0 +1,42 @@
+export const dl_tong_hop_cong = [
+    {
+        "id": 1,
+        "masb": "sb001",
+        "ogr": "Khối vận hành CNTT",
+        "day1": "x",
+        "day2": "",
+        "day3": "x",
+    },
+    {
+        "id": 2,
+        "masb": "sb002",
+        "ogr": "Khối vận hành CNTT",
+        "day1": "x",
+        "day2": "x",
+        "day3": "x",
+    },
+    {
+        "id": 3,
+        "masb": "sb003",
+        "ogr": "Khối khách hàng cá nhân",
+        "day1": "x",
+        "day2": "x",
+        "day3": "",
+    },
+    {
+        "id": 4,
+        "masb": "sb004",
+        "ogr": "Khối khách hàng cá nhân",
+        "day1": "",
+        "day2": "x",
+        "day3": "x",
+    },
+    {
+        "id": 5,
+        "masb": "sb005",
+        "ogr": "Khối vận hành CNTT",
+        "day1": "x",
+        "day2": "x",
+        "day3": "",
+    },
+]

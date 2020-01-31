@@ -1,0 +1,60 @@
+<form>
+    <div class="form-group col-md-4 d-flex">
+      <label for="project">Choose Project</label>
+      <select
+        (change)="handlerProjectIdSelected($event)"
+        class="form-control ml-3"
+        id="project">
+        <option *ngFor="let pr of listProject" [value]="pr.id" >{{ pr.name }}</option>
+      </select>
+      <button class="btn btn-primary ml-3" (click)="doSearch()">
+        Tìm kiếm
+      </button>
+    </div>
+  </form>
+  <label>Issues for projectId: {{ projectIdSelected }}</label>
+  <br>
+  <button class="btn btn-sm btn-primary mb-3 mt-3" (click)="doDelete()">Xóa</button>
+  <table class="table table-striped ">
+    <thead>
+      <tr class="bg-primary">
+        <th scope="col">Chọn</th>
+        <th scope="col">Id</th>
+        <th scope="col">Tên vấn đề</th>
+        <th scope="col">Mức hoàn thành</th>
+        <th scope="col">DueDate</th>
+        <th scope="col">Loại</th>
+        <th scope="col">Chức năng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let iss of issues">
+        <th scope="row"><input type="checkbox" [value]="iss.id" (change)="onCheckboxChange($event)"></th>
+        <td>  {{iss.id}}</td>
+        <td>{{iss.name}}</td>
+        <td>{{iss.donePercent}} %</td>
+        <td>{{iss.dueDate}}</td>
+        <td>{{iss.type}}</td>
+        <td>
+        <button class="btn btn-sm btn-info" (click)="openModal('xem',iss.id)">Xem</button>
+        <button class="btn btn-sm btn-warning ml-3">Sửa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+    <div class="table-responsive d-flex justify-content-center">
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="pageOption.totalRows"
+        [itemsPerPage]="pageOption.pageSize"
+        [maxSize]="5"
+        (pageChanged)="onPageChanged($event)"
+        [(ngModel)]="pageNumber"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      ></pagination>
+    </div>
+  

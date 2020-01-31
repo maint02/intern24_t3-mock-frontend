@@ -1,0 +1,65 @@
+<div class="panel">
+    <div class="card-body">
+        <h4 class="text-success">Cấu hình cấp phê duyệt</h4>
+        <ng-template #tooltipTemplate let-anchor>
+            <span>{{anchor.nativeElement.innerText}}</span>
+        </ng-template>
+        <div
+                kendoTooltip
+                showOn="none"
+                [tooltipTemplate]="tooltipTemplate"
+                filter=".k-grid td"
+                (mouseover)="showTooltip($event)"
+        >
+            <kendo-grid
+                    [data]="gridView"
+                    [loading]="cauHinhCapPheDuyetService.loading"
+                    [pageable]="pageableConfig"
+                    [pageSize]="state.take"
+                    [skip]="state.skip"
+                    [sort]="state.sort"
+                    [sortable]="true"
+                    [resizable]="true"
+                    [scrollable]="true"
+                    (dataStateChange)="dataStateChange($event)"
+                    [selectable]="{mode: 'multiple',checkboxOnly: true}"
+                    [kendoGridSelectBy]="'id'"
+                    [selectedKeys]="selectedItems"
+            >
+                <kendo-grid-messages
+                        pagerPage="Số bản ghi trên trang"
+                        pagerOf="của"
+                        pagerItems="bản ghi"
+                        pagerItemsPerPage="bản ghi"
+                        noRecords="Không có dữ liệu"
+                >
+                </kendo-grid-messages>
+                <kendo-grid-column field="function_id" title="ID" [width]="100"
+                                   [headerClass]="{'kendo-header-cell': true}"></kendo-grid-column>
+                <kendo-grid-column field="function_name" title="Module" [width]="150"
+                                   [headerClass]="{'kendo-header-cell': true}"></kendo-grid-column>
+                <kendo-grid-column [width]="150" field="level" title="Cấp phê duyệt"
+                                   [headerClass]="{'kendo-header-cell': true}"></kendo-grid-column>
+                <kendo-grid-column field="description" title="Mô tả" [width]="250"
+                                   [headerClass]="{'kendo-header-cell': true}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <span [innerHTML]="formatDescriptionHTML(dataItem.description)"></span>
+                    </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column title="Thao tác" [width]="100"
+                                   [headerClass]="{'kendo-header-cell': true}">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <div style="text-align: center">
+                            <a href="#" (click)="update($event, dataItem)" style="margin-right: 10px">
+                                <i class="far fa-edit text-info font-weight-bold"></i>
+                            </a>
+                            <a href="#" (click)="delete($event, dataItem)">
+                                <i class="far fa-trash-alt text-danger font-weight-bold"></i>
+                            </a>
+                        </div>
+                    </ng-template>
+                </kendo-grid-column>
+            </kendo-grid>
+        </div>
+    </div>
+</div>
