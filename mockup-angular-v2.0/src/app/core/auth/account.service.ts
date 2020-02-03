@@ -47,7 +47,7 @@ export class AccountService {
         // );
         const account = {
             username: 'admin',
-            authorities: ['ROLE_MEMBER', 'ROLE_HR', 'ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_ANONYMOUS'],
+            authorities: ['ROLE_CBNV', 'ROLE_HR', 'ROLE_QUANLY', 'ROLE_ADMIN'],
             type: '1',
             activated: true
         };
@@ -57,15 +57,12 @@ export class AccountService {
     save(account: Account): Observable<Account> {
         return this.http.post<Account>(SERVER_API_URL + 'api/account', account);
     }
-
-    activeAccount(account: Account): Observable<Account> {
-        return this.http.get<Account>(SERVER_API_URL + 'user/active-account/{username}');
-    }
-
     register(account: Account): Observable<Account> {
         return this.http.post<Account>(SERVER_API_URL + 'user/register', account);
     }
-
+    activeAccount(account: Account): Observable<Account> {
+        return this.http.get<Account>(SERVER_API_URL + 'user/active-account/{username}');
+    }
     authenticate(identity) {
         this.userIdentity = identity;
         this.authenticated = identity !== null;

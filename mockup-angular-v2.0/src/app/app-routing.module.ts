@@ -4,9 +4,7 @@ import {MainComponent} from './layout/main/main.component';
 import {LayoutModule} from './layout/layout.module';
 import {errorRoute} from './layout/error/error.route';
 import {UserRouteAccessService} from './core/auth/user-route-access-service';
-import {ActiveAccountComponent} from './core/active-account/active-account.component';
 import {RegisterComponent} from './core/register/register.component';
-import {LoginComponent} from './core/login/login.component';
 
 const routes: Routes = [
 
@@ -22,32 +20,19 @@ const routes: Routes = [
                 loadChildren: () => import('./examples/examples.module').then(m => m.ExamplesModule),
                 canActivate: [UserRouteAccessService],
                 data: {
-                    authorities: ['ROLE_HR']
+                    authorities: ['ROLE_ADMIN']
                 }
             },
             {
-                // path: 'quan-ly-z',
-                // loadChildren: () => import('./features/quan-ly-user/user-mng.module').then(m => m.UserMngModule),
+                path: 'quan-ly-user',
+                loadChildren: () => import('./features/quan-ly-user/user-mng.module').then(m => m.UserMngModule),
                 // canActivate: [UserRouteAccessService],
                 // data: {
-                //     authorities: ['ROLE_HR']
+                //     authorities: ['ROLE_ADMIN']
                 // }
             }
 
         ]
-    },
-    // {
-    //     path: '',
-    //     component: ,
-    // },
-    {
-        path: 'active-account',
-        component: ActiveAccountComponent,
-        loadChildren: () => import('./core/active-account/active-account.module').then(m => m.ActiveAccountModule),
-        canActivate: [UserRouteAccessService],
-        data: {
-            authorities: ['ROLE_HR']
-        }
     },
     {
         path: 'register',
@@ -56,12 +41,7 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent,
         loadChildren: () => import('./core/login/login.module').then(m => m.LoginModule),
-        canActivate: [UserRouteAccessService],
-        data: {
-            authorities: ['ROLE_HR', 'ROLE_LEADER', 'ROLE_MANAGER', 'ROLE_MEMBER']
-        }
     },
     {
         path: 'login-alt',

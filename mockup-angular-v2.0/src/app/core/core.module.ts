@@ -24,16 +24,12 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {AuthExpiredInterceptor} from "./interceptor/auth-expired.interceptor";
 import {ErrorHandlerInterceptor} from "./interceptor/errorhandler.interceptor";
 import {NotificationInterceptor} from "./interceptor/notification.interceptor";
-import {LabelModule} from "@progress/kendo-angular-label";
-import {ReactiveFormsModule} from "@angular/forms";
-import { ActiveAccountComponent } from './active-account/active-account.component';
-import {NgxSpinnerModule} from 'ngx-spinner';
 
 /**
  * Module for global imports
  */
 @NgModule({
-    declarations: [ActiveAccountComponent],
+    declarations: [],
     imports: [
         CommonModule,
         BrowserAnimationsModule,
@@ -65,10 +61,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         TooltipModule.forRoot(),
         TabsModule.forRoot(),
         PopoverModule.forRoot(),
-        DialogsModule,
-        LabelModule,
-        ReactiveFormsModule,
-        NgxSpinnerModule
+        DialogsModule
     ],
     providers: [
         // use custom serializer to strip redundant router data

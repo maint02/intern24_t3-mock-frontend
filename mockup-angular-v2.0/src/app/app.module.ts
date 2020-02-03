@@ -12,6 +12,7 @@ import {AppConfigService} from './app-config.service';
 import {UserMngModule} from './features/quan-ly-user/user-mng.module';
 import { RegisterModule } from './core/register/register.module';
 
+
 const appInitializer = (appConfig: AppConfigService) => {
     return () => {
         return appConfig.loadAppConfig();
@@ -26,8 +27,8 @@ const appInitializer = (appConfig: AppConfigService) => {
         AppRoutingModule,
         LoginModule,
         LoginAltModule,
-        RegisterModule,
         CoreModule,
+        RegisterModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(TOASTR_CONFIG)
     ],

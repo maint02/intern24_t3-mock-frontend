@@ -5,12 +5,9 @@ import {Injectable} from "@angular/core";
 export class AlertService {
     default_opts = {
         confirmButtonColor: '#ff4b46',
-        confirmButtonText: 'OK',
+        confirmButtonText: 'Có',
         cancelButtonColor: '#fd3995',
-        cancelButtonText: 'Cancel',
-        message: null,
-        title: null,
-        icon: null
+        cancelButtonText: 'Không',
     };
 
     constructor() {
@@ -19,6 +16,6 @@ export class AlertService {
 
     public fire(options?: any) {
         const opts = Object.assign(this.default_opts, options);
-        return Swal.fire(opts.title, opts.message, opts.icon);
+        return Swal.fire(opts);
     }
 }

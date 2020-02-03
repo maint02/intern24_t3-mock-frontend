@@ -49,7 +49,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
     items: any [];
     tempApprovals: any[];
     selectedItems = [];
-    account: Account;
+    employee: Account;
     sbCode;
     isDisplayJobtitle = true;
     isDisplayFullName = false;
@@ -132,7 +132,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
 
     public fetchEmp(event: KeyboardEvent) {
         if (event.code === 'Enter' || event.code === 'Space' || event.code === 'Tab') {
-            this.account = new Account();
+            this.employee = new Account();
             let value = this.inputID.value.toString().trim();
             this.addForm.get('inputName').reset();
             this.addForm.get('inputJobTitle').reset();
@@ -141,9 +141,9 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
                     if (!data.flag) {
                         this.toastr.warning('Nhân viên không tồn tại');
                     } else if (data.flag === 'enable') {
-                        this.account = data;
-                        this.addForm.get('inputName').setValue(this.account.emp_name);
-                        this.addForm.get('inputJobTitle').setValue(this.account.job_title);
+                        this.employee = data;
+                        this.addForm.get('inputName').setValue(this.employee.emp_name);
+                        this.addForm.get('inputJobTitle').setValue(this.employee.job_title);
                         this.disabledAdd = false;
                         this.setFocusName();
                     } else {
@@ -159,7 +159,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
     }
 
     public fetchEmpBlur() {
-        this.account = new Account();
+        this.employee = new Account();
         let value = this.inputID.value.toString().trim();
         this.addForm.get('inputName').reset();
         this.addForm.get('inputJobTitle').reset();
@@ -168,9 +168,9 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
                 if (!data.flag) {
                     this.toastr.warning('Nhân viên không tồn tại');
                 } else if (data.flag === 'enable') {
-                    this.account = data;
-                    this.addForm.get('inputName').setValue(this.account.emp_name);
-                    this.addForm.get('inputJobTitle').setValue(this.account.job_title);
+                    this.employee = data;
+                    this.addForm.get('inputName').setValue(this.employee.emp_name);
+                    this.addForm.get('inputJobTitle').setValue(this.employee.job_title);
                     this.disabledAdd = false;
                     this.setFocusName();
                 } else {
@@ -217,16 +217,16 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
 
     private convertToApproval(module: any): CauHinhPheDuyetCapQuanLy {
         let approval = new CauHinhPheDuyetCapQuanLy();
-        approval.sb_code = this.account.emp_code;
-        approval.fullname = this.account.emp_name;
-        approval.job_title = this.account.job_title;
+        approval.sb_code = this.employee.emp_code;
+        approval.fullname = this.employee.emp_name;
+        approval.job_title = this.employee.job_title;
         approval.function_name = module.name;
         approval.function_id = module.code;
         return approval;
     }
 
     private validateForm(): boolean {
-        if (!this.account || this.account.emp_name === '') {
+        if (!this.employee || this.employee.emp_name === '') {
             return false;
         }
         return true;

@@ -1,11 +1,10 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import {AccountService} from '../auth/account.service';
-import {LoginService} from './login.service';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {StateStorageService} from '../auth/state-storage.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthServerProvider} from '../auth/auth-jwt.service';
+import {AccountService} from "../auth/account.service";
+import {LoginService} from "./login.service";
+import {FormBuilder, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {StateStorageService} from "../auth/state-storage.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'smart-login',
@@ -13,7 +12,7 @@ import {AuthServerProvider} from '../auth/auth-jwt.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    returnUrl: string;
+
     loginForm = this.fb.group({
         username: [null, [Validators.required]],
         password: [null, [Validators.required]],
@@ -25,23 +24,14 @@ export class LoginComponent implements OnInit {
         private accountService: AccountService,
         private fb: FormBuilder,
         private router: Router,
-        private route: ActivatedRoute,
         private stateStorageService: StateStorageService,
         private renderer: Renderer2,
-        private spinnerService: NgxSpinnerService,
-        private authServerProvider: AuthServerProvider
+        private spinnerService: NgxSpinnerService
     ) {
-        // redirect to home if already logged in
-        if (this.authServerProvider.getCurrentEmployee) {
-            this.router.navigate(['/']);
-        }
     }
 
     ngOnInit() {
         this.setFocus();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     }
 
     onSubmit() {
