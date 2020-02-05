@@ -5,6 +5,9 @@ import {LayoutModule} from './layout/layout.module';
 import {errorRoute} from './layout/error/error.route';
 import {UserRouteAccessService} from './core/auth/user-route-access-service';
 import {RegisterComponent} from './core/register/register.component';
+import {HomeComponent} from "./core/home/home.component";
+import {LoginComponent} from "./core/login/login.component";
+import {LoginAltComponent} from "./core/login_alt/login-alt.component";
 
 const routes: Routes = [
 
@@ -30,10 +33,23 @@ const routes: Routes = [
                 // data: {
                 //     authorities: ['ROLE_ADMIN']
                 // }
-            }
+            },
+            {
+                path: 'employee-manager',
+                loadChildren: () => import('./features/employee-manager/emp-mng.module').then(m => m.EmpMngModule),
+                // canActivate:[UserRouteAccessService],
+                // data:{
+                //     authorities: ['ROLE_ADMIN']
+                // }
+            },
 
         ]
     },
+    // {
+    //     path: 'home',
+    //     component: HomeComponent,
+    //     loadChildren: () => import('./core/home/home.module').then(m => m.HomeModule),
+    // },
     {
         path: 'register',
         component: RegisterComponent,
@@ -41,10 +57,12 @@ const routes: Routes = [
     },
     {
         path: 'login',
+        component: LoginComponent,
         loadChildren: () => import('./core/login/login.module').then(m => m.LoginModule),
     },
     {
         path: 'login-alt',
+        component: LoginAltComponent,
         loadChildren: () => import('./core/login_alt/login-alt.module').then(m => m.LoginAltModule),
     },
     ...errorRoute

@@ -1,10 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+    <div>
+        <h1 class="subheader-title">
+            Danh sách nhân viên
+        </h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr class="text-center">
+                <th class="text-center">STT</th>
+                <th class="text-center">Họ và tên</th>
+                <th class="text-center">Tên người dùng</th>
+                <th class="text-center">Ảnh đại diện</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Số điện thoại</th>
+                <th class="text-center">Skype</th>
+                <th class="text-center">Chức vụ</th>
+                <th class="text-center">Phòng ban</th>
+                <th class="text-center">Team</th>
+                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Ngày vào công ty</th>
+                <th class="text-center">Lần đăng nhập gần nhất</th>
+                <th class="text-center" style="width: 250px">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let e of employee; let i = index">
+                <td class="text-center">{{i + 1 + (pageOptions.page * pageOptions.pageSize)}}</td>
+                <td>{{e.fullName}}</td>
+                <!--                <td> {{u.gender === 0 ? 'Nu' :'Nam'}} </td>-->
+                <td> {{e.username}}</td>
+                <td>{{e.imageUrl}}</td>
+                <td>{{e.email}}</td>
+                <td>{{e.phoneNumber}}</td>
+                <td>{{e.skypeAccount}}</td>
+                <td>{{e.positionName}}</td>
+                <td>{{e.departmentName}}</td>
+                <td>{{e.teamName}}</td>
+                <td>{{e.isActived}}</td>
+                <td>{{e.createdDate | date: 'yyyy/MM/dd'}}</td>
+                <td>{{e.lastAccess | date: 'yyyy/MM/dd'}}</td>
+                <td class="text-center">
+<!--                    <div class="btn-group">-->
+<!--                        <div hasAnyRole="HR">-->
+<!--                            <button class="btn btn-info btn-sm">-->
+<!--                                <i class="fa fa-eye"></i>-->
+<!--                                <span class="d-none d-md-inline">Xem</span>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="btn-group">
+                        <div hasAnyRole="HR">
+                            <button class="btn btn-info btn-sm" type="submit">
+                                <i class="fa fa-pencil"></i>
+                                <span class="d-none d-md-inline">Sửa</span>
+                            </button>
+                        </div>
+                        l
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-info btn-sm" type="submit">
+                            <i class="fa fa-trash"></i>
+                            <span class="d-none d-md-inline">Xoá</span>
+                        </button>
+                    </div>
+            </tr>
+            </tbody>
+        </table>
+        <pagination [boundaryLinks]="true"
+                    [totalItems]="pageOptions.totalRows"
+                    [itemsPerPage]="pageOptions.pageSize"
+                    [maxSize]="pageOptions.pageSize"
+                    (pageChanged)="onPageChanged($event)"
+                    previousText="&lsaquo;"
+                    nextText="&rsaquo;"
+                    firstText="&laquo;"
+                    lastText="&raquo;"></pagination>
+    </div>
+<!--<div class="panel">-->
+<!--    <div class="card-body">-->
+<!--        <div class="form-group row" style="padding-left: 15px; padding-right: 15px">-->
+<!--            <div class="form-group col-md-6">-->
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-4 col-sm-6 col-form-label form-label">Họ và tên</label>-->
+<!--                    <div class="col-md-8 col-sm-6">-->
+<!--                        <input type="text" placeholder="Nhập họ và tên" class="form-control">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-4 col-sm-6 col-form-label form-label">Số điện thoại</label>-->
+<!--                    <div class="col-md-8 col-sm-6">-->
+<!--                        <input type="text" placeholder="Nhập số điện thoại" class="form-control">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-6">-->
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-4 col-sm-6 col-form-label form-label">CMND/Hộ chiếu</label>-->
+<!--                    <div class="col-md-8 col-sm-6">-->
+<!--                        <input type="text" placeholder="Nhập CMND/Hộ chiếu" class="form-control">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group row">-->
+<!--                    <label class="col-md-4 col-sm-6 col-form-label form-label">Trạng thái</label>-->
+<!--                    <div class="col-md-8 col-sm-6">-->
+<!--                        <select class="form-control" style="width: 100%">-->
+<!--                            <option [value]="null"> &#45;&#45; Tất cả &#45;&#45;</option>-->
+<!--                            <option *ngFor="let item of status" [value]="item.id">{{item.name}}</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group row text-center">-->
+<!--            <div class="col-md-12">-->
+<!--                <button type="button" (click)="doSearch()" class="btn btn-info">-->
+<!--                    <i class="far fa-search"></i> Tìm kiếm-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

@@ -5,10 +5,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'smart-insert-update-user',
-    templateUrl: './insert-update-employee.component.html',
-    styleUrls: ['./insert-update-user.component.scss']
+    templateUrl: './insert-update-emp.component.html',
+    styleUrls: ['./insert-update-emp.component.scss']
 })
-export class InsertUpdateUserComponent implements OnInit {
+export class InsertUpdateEmpComponent implements OnInit {
     @Input() actionType: any;
     @Input() selectedItem: any;
     title: any = '';

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthServerProvider} from '../auth/auth-jwt.service';
-import {Employee} from '../../shared/model/user/employee';
+import {Employee} from '../../shared/model/employee/employee.model';
 import {first} from 'rxjs/operators';
 import {EmployeeService} from '../service/employee.service';
 

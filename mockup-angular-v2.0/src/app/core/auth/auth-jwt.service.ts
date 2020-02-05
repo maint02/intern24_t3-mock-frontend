@@ -1,21 +1,28 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
-import {SERVER_API_URL} from "../../app.constants";
+import {SERVER_API_URL} from '../../app.constants';
+import {Employee} from '../../shared/model/employee/employee.model';
 
 
 @Injectable({providedIn: 'root'})
 export class AuthServerProvider {
 
-    private LOGIN_PATH = "JWT-INTERNAL/login";
+    private LOGIN_PATH = 'JWT-INTERNAL/login';
+    private currentEmployeeSubject: BehaviorSubject<Employee>;
+    public currentEmployee: Observable<Employee>;
 
     constructor(private http: HttpClient, private $localStorage: LocalStorageService, private $sessionStorage: SessionStorageService) {
     }
 
     getToken() {
         return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');
+    }
+
+    public get getCurrentEmployee(): Employee {
+        return this.currentEmployeeSubject.value;
     }
 
     login(credentials): Observable<any> {
@@ -29,6 +36,9 @@ export class AuthServerProvider {
 
         return this.http.post(SERVER_API_URL + this.LOGIN_PATH, {}, {observe: 'response'}).pipe(map(authenticateSuccess.bind(this)));
     }
+    // khai báo api getemp info
+
+
 
     storeAuthenticationToken(jwt, rememberMe) {
         if (rememberMe) {
