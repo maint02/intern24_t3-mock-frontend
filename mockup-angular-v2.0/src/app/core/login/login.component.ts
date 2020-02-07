@@ -1,10 +1,11 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import {AccountService} from "../auth/account.service";
-import {LoginService} from "./login.service";
-import {FormBuilder, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {StateStorageService} from "../auth/state-storage.service";
-import {NgxSpinnerService} from "ngx-spinner";
+import {AccountService} from '../auth/account.service';
+import {LoginService} from './login.service';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {StateStorageService} from '../auth/state-storage.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
     selector: 'smart-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private loginService: LoginService,
-        private accoutService: AccountService,
+        private accountService: AccountService,
         private fb: FormBuilder,
         private router: Router,
         private stateStorageService: StateStorageService,
@@ -47,6 +48,8 @@ export class LoginComponent implements OnInit {
             })
             .subscribe(
                 (res) => {
+                    // this.$localStorage.get().username;
+                    // gọi api get emp by username
                     const redirect = this.stateStorageService.getUrl();
                     if (redirect) {
                         this.stateStorageService.storeUrl(null);

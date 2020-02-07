@@ -4,8 +4,8 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, of, Subject} from 'rxjs';
 import {map, shareReplay, tap} from 'rxjs/operators';
 
-import {SERVER_API_URL} from "../../app.constants";
-import {Account} from "../../shared/model/user/account.model";
+import {SERVER_API_URL} from '../../app.constants';
+import {Account} from '../../shared/model/user/account.model';
 
 @Injectable({providedIn: 'root'})
 export class AccountService {
@@ -13,7 +13,7 @@ export class AccountService {
     private authenticated = false;
     private authenticationState = new Subject<any>();
     private accountCache$: Observable<Account>;
-    private resource_url = "/api?path=GetEmployeeInfo";
+    private resource_url = '/api?path=GetEmployeeInfo';
 
     constructor(
         private sessionStorage: SessionStorageService,
@@ -25,15 +25,15 @@ export class AccountService {
     fetch(): Observable<Account> {
         const logged_user = this.localStorage.retrieve('logged_user');
         const body = {
-            "header": {
-                "reqType": "REQUEST",
-                "trusted": "false"
+            header: {
+                reqType: 'REQUEST',
+                trusted: 'false'
 
             },
-            "body": {
-                "command": "GetEmployeeInfo",
-                "userID": logged_user,
-                "emp_code": ""
+            body: {
+                command: 'GetEmployeeInfo',
+                userID: logged_user,
+                emp_code: ''
             }
         };
         // return this.http.post<HttpResponse<any>>(SERVER_API_URL + this.resource_url, body, {observe: "response"}).pipe(
@@ -46,10 +46,10 @@ export class AccountService {
         //     })
         // );
         const account = {
-            "username": "admin",
-            "authorities": ["ROLE_CBNV", "ROLE_HR", "ROLE_QUANLY", "ROLE_ADMIN"],
-            "type": "1",
-            "activated": true
+            username: 'admin',
+            authorities: ['ROLE_CBNV', 'ROLE_HR', 'ROLE_QUANLY', 'ROLE_ADMIN'],
+            type: '1',
+            activated: true
         };
         return of(account);
     }
@@ -57,7 +57,12 @@ export class AccountService {
     save(account: Account): Observable<Account> {
         return this.http.post<Account>(SERVER_API_URL + 'api/account', account);
     }
-
+    register(account: Account): Observable<Account> {
+        return this.http.post<Account>(SERVER_API_URL + 'user/register', account);
+    }
+    activeAccount(account: Account): Observable<Account> {
+        return this.http.get<Account>(SERVER_API_URL + 'user/active-account/{username}');
+    }
     authenticate(identity) {
         this.userIdentity = identity;
         this.authenticated = identity !== null;

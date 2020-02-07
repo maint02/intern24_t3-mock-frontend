@@ -9,7 +9,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {TOASTR_CONFIG} from './core/config/toastr.config';
 import {AppConfigService} from './app-config.service';
-import {UserMngModule} from './features/quan-ly-user/user-mng.module';
+import { RegisterModule } from './core/register/register.module';
+import {EmpMngModule} from './features/employee-manager/emp-mng.module';
+import {PaginationModule} from "ngx-bootstrap";
 
 const appInitializer = (appConfig: AppConfigService) => {
     return () => {
@@ -18,7 +20,7 @@ const appInitializer = (appConfig: AppConfigService) => {
 };
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -26,8 +28,11 @@ const appInitializer = (appConfig: AppConfigService) => {
         LoginModule,
         LoginAltModule,
         CoreModule,
+        EmpMngModule,
+        RegisterModule,
+        PaginationModule.forRoot(),
         BrowserAnimationsModule,
-        ToastrModule.forRoot(TOASTR_CONFIG),
+        ToastrModule.forRoot(TOASTR_CONFIG)
     ],
     providers: [
         AppConfigService,

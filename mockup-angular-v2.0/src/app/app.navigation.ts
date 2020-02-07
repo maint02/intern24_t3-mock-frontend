@@ -26,6 +26,14 @@ export const NavigationItems = [
                         title: 'List Issues',
                         tags: 'Thêm mới/sửa/xóa Issues',
                         routerLink: '/quan-ly-issues',
+                title: 'Quản lý nhân viên',
+                tags: 'Quản lý nhân viên',
+                icon: 'far fa-tasks',
+                items: [
+                    {
+                        title: 'Thêm/sửa/xoá nhân viên',
+                        tags: 'Thêm/sửa/xoá nhân viên',
+                        routerLink: '/employee-manager',
                         icon: 'far fa-tasks',
                     }
                 ]
