@@ -17,15 +17,21 @@ export class IssuesComponent implements OnInit, OnChanges {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
+    // tslint:disable-next-line: ban-types
   ) {
     console.log('==== gọi constructor');
   }
+  issueCheckedList: any;
+  issueMasterSelected: boolean = false;
   issues: IssueModel[] = [];
+  nameI ='abcs';
+  issueSearchDto: IssueModel = new IssueModel;
   pageNumber: any;
-  limit = 3;
+  limit = 5;
   page: any = 1;
   pageOption: any = {
     pageSize: 1,
+
     totalRows: 3 // thay thế cái này bằng tổng page truyền từ api ra vì thư viện này ko hõ trợ tổng page
   };
   listProject: ProjectModel[] = [];
@@ -33,14 +39,16 @@ export class IssuesComponent implements OnInit, OnChanges {
   listIdChecked: number[] = [];
   public apiCallIssues = 'http://localhost:8082/api/issue/get-by-project/';
   public apiAllProject = 'http://localhost:8082/api/project/get-All';
+  public apiSearchIssueByParams = 'http://localhost:8082/api/issue/get-by-project/';
   ngOnInit() {
     // 1.load all project
-    // 2. gán các biến cần thiết cho khởi tạo
+    // 2. gán các biến cần thiết cho khởi tạo:
     console.log('==== OnInit: IssuesMngComponent');
     this.http.get(this.apiAllProject).subscribe((res: any) => {
       if (res.responseCode === 1) {
         this.listProject = res.dataResponse;
-        this.projectIdSelected = this.listProject[0].id;
+        this.pageOption.totalRows = 0;
+        // this.projectIdSelected = this.listProject[0].id;
       }
     });
     // hàm checkDataRouterForSearch: kiểm tra url xem có page và id truyền vào không để gọi api
@@ -66,8 +74,10 @@ export class IssuesComponent implements OnInit, OnChanges {
     this.router.navigateByUrl(myurl);
     this.route.firstChild.queryParams.subscribe(params => {
       this.page = params.page;
-      this.getApiByProjectId(this.page, this.limit, this.projectIdSelected);
+      //this.getApiByProjectId(this.page, this.limit, this.projectIdSelected);
+      this.searchIssueByParams();
     });
+    this.issueMasterSelected = false;
   }
   getApiByProjectId(page: number, limit: number, prId: number) {
     this.http
@@ -76,6 +86,18 @@ export class IssuesComponent implements OnInit, OnChanges {
         this.issues = res.dataResponse.listData;
         this.pageOption.totalRows = res.dataResponse.totalPage;
       });
+  }
+  getApiByProjectIdAndParams(page: number, limit: number, prId: number, issueSearchDto: IssueModel){
+    this.http.post(`${this.apiSearchIssueByParams}${prId}/search/?page=${page}&limit=${limit}`,this.issueSearchDto)
+    .subscribe((res: any ) => {
+      if (res.responseCode === 1) {
+        this.issues = res.dataResponse.listData;
+        this.pageOption.totalRows = res.dataResponse.totalPage;
+      } else {
+        this.issues = [];
+        this.pageOption.totalRows = 0;
+      }
+    });
   }
   doSearch() {
     this.page = 1;
@@ -103,6 +125,32 @@ export class IssuesComponent implements OnInit, OnChanges {
         }
       });
     }
+  }
+  checkUncheckAll() {
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.issues.length; i++) {
+      this.issues[i].isSelected = this.issueMasterSelected;
+    }
+    this.getCheckedItemList();
+    console.log(this.listIdChecked);
+  }
+  isAllSelected() {
+    // tslint:disable-next-line: only-arrow-functions
+    this.issueMasterSelected = this.issues.every(function(item: any) { //nếu tất cả đc check thì trả về true
+        return item.isSelected == true; //nếu có một issue ko đc seleted thì false
+      });
+    this.getCheckedItemList();
+    console.log(this.listIdChecked);
+  }
+
+  getCheckedItemList() {
+    this.listIdChecked = [];
+    for (let i = 0; i < this.issues.length; i++) {
+      if (this.issues[i].isSelected) {
+      this.listIdChecked.push(this.issues[i].id);
+      }
+    }
+    //this.checkedList = JSON.stringify(this.checkedList);
   }
   doDelete() {
     // tslint:disable-next-line: ban-types
@@ -181,10 +229,31 @@ export class IssuesComponent implements OnInit, OnChanges {
     }
   }
   openModal(action: string, idIssue: number) {
-    console.log(action);
-    console.log(idIssue);
-    const modalRef = this.modalService.open(IssueModalComponent);
-    modalRef.componentInstance.id = idIssue; // truyền sang component con ngmodeltest
-    modalRef.componentInstance.action = action; // truyền sang component con ngmodeltest
+   let issueSendToModal: IssueModel;
+   console.log(action);
+   console.log(idIssue);
+   const modalRef = this.modalService.open(IssueModalComponent);
+    // lấy luôn thông tin từ issue[] đẩy sang modal:
+   this.issues.forEach((item: IssueModel) => {
+      const indexIssue = this.issues.indexOf(item);
+      if (item.id === idIssue) {
+        issueSendToModal = this.issues[indexIssue];
+      }
+    });
+   modalRef.componentInstance.id = idIssue; // truyền sang component con ngmodeltest
+   modalRef.componentInstance.action = action; // truyền sang component con ngmodeltest
+   modalRef.componentInstance.issues = issueSendToModal;
    }
+   searchIssueByParams(){
+    console.log(this.issueSearchDto.name);
+    this.getApiByProjectIdAndParams(this.page, this.limit, this.projectIdSelected, this.issueSearchDto);
+   }
+   handlerPrioritySelected(event: any) {
+    console.log(event.target.value);
+    this.issueSearchDto.priority = event.target.value;
+  }
+  handlerLevelDonePercentSelected(event: any){
+    console.log(event.target.value);
+    this.issueSearchDto.donePercent = event.target.value;
+  }
 }

@@ -22,8 +22,9 @@ import {SharedModule} from '../../shared/shared.module';
         RouterModule.forChild([
             {path: '', pathMatch: 'full', redirectTo: 'user-mng'},
             {
-                path: 'user-mng/:id', component: UserMngComponent,
-                data: {breadcrumbs: ['QuanLyUser', '']}
+                path: 'user-mng', component: UserMngComponent,
+                data: {breadcrumbs: ['QuanLyUser', '']},
+                children: [{ path: 'insert', component: InsertUpdateUserComponent }]
             }
         ])
     ]

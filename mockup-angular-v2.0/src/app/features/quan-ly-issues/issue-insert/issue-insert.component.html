@@ -1,0 +1,112 @@
+<div class="subheader">
+    <h1 class="subheader-title">
+        Thêm một vấn đề
+    </h1>
+</div>
+<div class="panel">
+    <div class="card-body">
+        <div class="form-group row" style="padding-left: 15px; padding-right: 15px">
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Chọn Project:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select (change)="handlerProjectIdSelected($event)" class="form-control" id="project">
+                        <option [value]="null"> -- Chọn Project --</option>
+                        <option *ngFor="let pr of listProject" [value]="pr.id" [selected]="projectIdSelected==pr.id">{{ pr.name }}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Kiểu vấn đề:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select class="form-control" style="width: 30%" (change)="handlerTypeSelected($event)">
+                            <option [value]="null"> --Chọn kiểu vấn đề --</option>
+                            <option value="Documents"> Files</option>
+                            <option value="Documents"> Documents</option>
+                            <option value="Database"> Database</option>
+                            <option value="View"> View</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Tên vấn đề:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <input type="text" placeholder="Nhập tên vấn đề" class="form-control" [(ngModel)]="issue.name">
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Nguyên nhân:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <input type="text" placeholder="Nhập nguyên nhân" class="form-control" [(ngModel)]="issue.reason">
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Mô tả:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <ckeditor [editor]="Editor" (change)="onChange($event)"></ckeditor>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Mức độ:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select class="form-control" style="width: 30%" (change)="handlerPrioritySelected($event)">
+                            <option [value]="null"> --Chọn mức độ --</option>
+                            <option value="Dễ">Dễ</option>
+                            <option value="Trung bình">Trung bình</option>
+                            <option value="Khó">Khó</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Thời gian bắt đầu:</label>
+                    <div class="col-md-3 col-sm-6">
+                        <form>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Create date</label>
+                                <div class="input-group">
+                                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+        </div>
+        <div class="form-group row text-center">
+            <div class="col-md-12">
+                <button type="button" (click)="doAdd()" class="btn btn-info">
+                 Thêm mới
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

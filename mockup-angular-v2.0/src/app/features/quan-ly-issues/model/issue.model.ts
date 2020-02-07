@@ -1,4 +1,5 @@
 export class IssueModel {
+    constructor() {}
     public  id: number ;
 
     public  startDate?: Date;
@@ -22,4 +23,6 @@ export class IssueModel {
     public  statusId?: number;
 
     public  employeeReportedId?: number;
+    public statusName?: string;
+    public isSelected: boolean = false;
 }

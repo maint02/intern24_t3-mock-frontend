@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IssueModel } from '../model/issue.model';
 
 @Component({
   selector: 'smart-issue-modal',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IssueModalComponent implements OnInit {
 
-  constructor() { }
+  @Input() action;
+  @Input() id;
+  @Input() issues: IssueModel;
+  constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
-
+  updateIssue(id: number){
+    alert('sửa thông tin id:'+ id);
+  }
 }
