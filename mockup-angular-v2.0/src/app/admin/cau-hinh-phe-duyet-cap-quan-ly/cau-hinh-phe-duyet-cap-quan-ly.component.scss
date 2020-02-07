@@ -1,0 +1,69 @@
+.box-filter-detail {
+    .field-list {
+        margin: 0 0 0 4em;
+        padding: 0;
+    
+        li {
+            list-style: none;
+            padding-bottom: .7em;
+
+            label {
+                width: 100%;
+                background-color: #f1edf3;
+            }
+
+            .k-checkbox-label {
+                padding-left: calc( 20px + 4px );
+            }
+        }
+    }
+}
+.box-filter-asign {
+    .field-list {
+        margin: 0 0 1em 4em;
+        padding: 0;
+    
+        li {
+            list-style: none;
+            padding-bottom: 1.7em;
+
+            label {
+                width: 100%;
+                background-color: #f1edf3;
+            }
+
+            .k-checkbox-label {
+                padding-left: calc( 20px + 4px );
+            }
+        }
+    }
+    .padding-right0 {
+        padding-right: 0px;
+    }
+    .label-approval {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.box-button-add {
+    padding-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.box-button-update {
+    padding-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+@media (max-width: 600px) {
+    .box-button-add {
+        margin-top: 15px;
+    }
+}
+.edit-font-size {
+    font-size: 1rem;
+}

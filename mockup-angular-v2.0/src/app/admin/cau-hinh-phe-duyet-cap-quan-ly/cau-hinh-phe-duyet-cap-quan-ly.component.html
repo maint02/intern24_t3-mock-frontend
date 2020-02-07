@@ -1,0 +1,142 @@
+<div class="panel">
+    <div class="card-body">
+        <form [formGroup]="addForm" role="form">
+            <div class="box-filter">
+                <div class="box-filter-detail">
+                    <div class="col-md-12 text-primary">
+                        <h4>Hiển thị thông tin trong chi tiết yêu cầu</h4>
+                    </div>
+                    <div class="k-content">
+                        <ul class="field-list">
+                            <li>
+                                <input type="checkbox" formControlName="checkboxJobTitle" id="checkboxJobTitle"
+                                       class="k-checkbox">
+                                <label class="k-checkbox-label" for="checkboxJobTitle">Hiển thị chức danh</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" formControlName="checkboxName" id="checkboxName"
+                                       class="k-checkbox">
+                                <label class="k-checkbox-label" for="checkboxName">Hiển thị tên</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" formControlName="checkboxEmail" id="checkboxEmail"
+                                       class="k-checkbox">
+                                <label class="k-checkbox-label" for="checkboxEmail">Hiển thị email</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-filter-asign">
+                    <div class="col-md-12 text-primary">
+                        <h4>Ủy quyền phê duyệt</h4>
+                    </div>
+                    <div class="k-content">
+                        <ul class="field-list">
+                            <li>
+                                <input type="checkbox" formControlName="checkboxAssign" id="checkboxAssign"
+                                       class="k-checkbox">
+                                <label class="k-checkbox-label" for="checkboxAssign">Ủy quyền phê duyệt</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <kendo-combobox class="form-control" formControlName="selectID" (selectionChange)="changeSelectId()" [data]="typesSearch"
+                                                [textField]="'name'" [valueField]="'code'" [valuePrimitive]="true">
+
+                                </kendo-combobox>
+<!--                                <select class="form-control" formControlName="selectID" (change)="changeSelectId()">-->
+<!--                                    <option value="sbCode">Mã SB</option>-->
+<!--                                    <option value="email">Email</option>-->
+<!--                                    <option value="userId">UserId</option>-->
+<!--                                </select>-->
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control" (keyup)="fetchEmp($event)" (blur)="fetchEmpBlur()"
+                                       formControlName="inputID"
+                                       id="inputMaSB" type="text" [maxLength]="lengthInputId" trim="blur">
+                                <div *ngIf="emailIsInvalid" class="pt-1 text-primary">
+                                    <span>Email không đúng định dạng</span>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 col-form-label label-approval" for="inputName">Tên</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" id="inputName" formControlName="inputName" type="text"
+                                       readonly>
+                            </div>
+                            <label class="col-sm-1 label-approval" for="inputJobTitle">Chức danh</label>
+                            <div class="col-sm-3 padding-right0">
+                                <input class="form-control" id="inputJobTitle" formControlName="inputJobTitle"
+                                       type="text" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="selectAssign">Chức năng ủy quyền</label>
+                            <div class="col-sm-10 padding-right0">
+                                <kendo-combobox class="form-control" formControlName="selectAssign" id="selectAssign" [data]="modules"
+                                 [textField]="'name'" [valueField]="'code'" [valuePrimitive]="true">
+
+                                </kendo-combobox>
+<!--                                <select class="form-control" formControlName="selectAssign" id="selectAssign">-->
+<!--                                    <option value="">Tất cả</option>-->
+<!--                                    <option *ngFor="let item of modules" [value]="item.code">{{item.name}}</option>-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        <kendo-grid [data]="gridView" [pageable]="pageableConfig" [pageSize]="stateGrid.take"
+                    [skip]="stateGrid.skip"
+                    [sort]="stateGrid.sort" [sortable]="true" [resizable]="true" [scrollable]="true"
+                    (dataStateChange)="dataStateChange($event)">
+            <kendo-grid-messages columnsApply="Xác nhận" columns="Danh sách cột" columnsReset="Làm lại"
+                                 pagerPage="Số bản ghi trên trang" pagerOf="của" pagerItems="bản ghi"
+                                 pagerItemsPerPage="bản ghi"
+                                 noRecords="Không có dữ liệu">
+            </kendo-grid-messages>
+            <ng-template kendoGridToolbarTemplate>
+                <span class="text-success">Dữ liệu ủy quyền
+                    <span class="refresh_icon_sm" (click)="getConfigApprovalOfManager(sbCode)"><i class="ni ni-refresh"></i></span>
+                </span>
+                <div style="float: right;">
+                    <button id="addApproval" (click)="add()" class="btn btn-primary" type="button" [disabled]="disabledAdd">
+                        <i class="far fa-plus"></i> Thêm ủy quyền
+                    </button>
+                    <kendo-grid-column-chooser style="float:right;"
+                                               [allowHideAll]="false"></kendo-grid-column-chooser>
+                </div>
+            </ng-template>
+            <kendo-grid-column field="sb_code" title="Mã SB/Email/UserID" [headerClass]="{'kendo-header-cell': true}"
+                               [width]="100">
+            </kendo-grid-column>
+            <kendo-grid-column field="fullname" title="Tên" [headerClass]="{'kendo-header-cell': true}" [width]="120">
+            </kendo-grid-column>
+            <kendo-grid-column field="job_title" title="Chức danh" [headerClass]="{'kendo-header-cell': true}"
+                               [width]="100">
+            </kendo-grid-column>
+            <kendo-grid-column field="function_name" title="Chức năng ủy quyền"
+                               [headerClass]="{'kendo-header-cell': true}"
+                               [width]="120">
+            </kendo-grid-column>
+            <kendo-grid-column title="Thao tác" [headerClass]="{'kendo-header-cell': true}" [width]="80">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <div style="text-align: center">
+                        <a href="" (click)="delete($event, dataItem)">
+                            <i class="far fa-trash-alt text-danger font-weight-bold"></i>
+                        </a>
+                    </div>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+        <div class="selected-items">
+            <button type="button" (click)="update()" class="btn btn-primary">
+                <i class="far fa-edit edit-font-size"></i> Cập nhật
+            </button>
+        </div>
+    </div>
+</div>

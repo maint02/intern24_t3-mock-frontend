@@ -1,0 +1,7 @@
+<ng-template #defaultTemplate let-message="message">
+    <span class="sb-validate-tooltip">default template: {{message}}</span>
+</ng-template>
+
+<ng-template sbValidate>
+    <ng-content #sbValidateMessageComponent></ng-content>
+</ng-template>
