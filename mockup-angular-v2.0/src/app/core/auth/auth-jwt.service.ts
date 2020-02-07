@@ -6,7 +6,6 @@ import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 import {SERVER_API_URL} from '../../app.constants';
 import {Employee} from '../../shared/model/employee/employee.model';
 
-
 @Injectable({providedIn: 'root'})
 export class AuthServerProvider {
 
@@ -14,7 +13,7 @@ export class AuthServerProvider {
     private currentEmployeeSubject: BehaviorSubject<Employee>;
     public currentEmployee: Observable<Employee>;
 
-    constructor(private http: HttpClient, private $localStorage: LocalStorageService, private $sessionStorage: SessionStorageService) {
+  constructor(private http: HttpClient, private $localStorage: LocalStorageService, private $sessionStorage: SessionStorageService) {
     }
 
     getToken() {
@@ -37,8 +36,6 @@ export class AuthServerProvider {
         return this.http.post(SERVER_API_URL + this.LOGIN_PATH, {}, {observe: 'response'}).pipe(map(authenticateSuccess.bind(this)));
     }
     // khai báo api getemp info
-
-
 
     storeAuthenticationToken(jwt, rememberMe) {
         if (rememberMe) {

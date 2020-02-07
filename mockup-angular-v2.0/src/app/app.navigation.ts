@@ -18,6 +18,14 @@ export const NavigationItems = [
                 ]
             },
             {
+                title: 'Quản lý Issues',
+                tags: 'Quản lý Issues',
+                icon: 'far fa-tasks',
+                items: [
+                    {
+                        title: 'List Issues',
+                        tags: 'Thêm mới/sửa/xóa Issues',
+                        routerLink: '/quan-ly-issues',
                 title: 'Quản lý nhân viên',
                 tags: 'Quản lý nhân viên',
                 icon: 'far fa-tasks',

@@ -13,7 +13,6 @@ import { RegisterModule } from './core/register/register.module';
 import {EmpMngModule} from './features/employee-manager/emp-mng.module';
 import {PaginationModule} from "ngx-bootstrap";
 
-
 const appInitializer = (appConfig: AppConfigService) => {
     return () => {
         return appConfig.loadAppConfig();

@@ -35,6 +35,12 @@ const routes: Routes = [
                 // }
             },
             {
+                path: 'quan-ly-issues',
+                loadChildren: () => import('./features/quan-ly-issues/quan-ly-issues.module').then(m => m.QuanLyIssuesModule),
+            }
+        ]
+    },
+    {
                 path: 'employee-manager',
                 loadChildren: () => import('./features/employee-manager/emp-mng.module').then(m => m.EmpMngModule),
                 // canActivate:[UserRouteAccessService],

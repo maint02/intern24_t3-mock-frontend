@@ -29,6 +29,4 @@ export class AppComponent {
     get isLeader() {
         return this.currentEmployee && this.currentEmployee.roleName === RoleModel.LEADER;
     }
-
-
 }
