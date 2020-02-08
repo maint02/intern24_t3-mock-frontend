@@ -26,6 +26,10 @@ export const NavigationItems = [
                         title: 'List Issues',
                         tags: 'Thêm mới/sửa/xóa Issues',
                         routerLink: '/quan-ly-issues',
+                    }
+                ]
+            },
+            {
                 title: 'Quản lý nhân viên',
                 tags: 'Quản lý nhân viên',
                 icon: 'far fa-tasks',
@@ -36,7 +40,7 @@ export const NavigationItems = [
                         routerLink: '/employee-manager',
                         icon: 'far fa-tasks',
                     }
-                ]
+                    ]
             }
         ]
     },
