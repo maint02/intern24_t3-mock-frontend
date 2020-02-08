@@ -356,7 +356,7 @@ $header-dropdown-arrow-color:			$primary-700 !default;
 
 /* main navigation */
 /* left panel */
-$nav-background:						desaturate($primary-900, 7%) !default;
+$nav-background:						#003300 !default;
 $nav-background-shade:					rgba(desaturate($info-500, 15%), 0.18) !default;                  
 $nav-base-color:						lighten($nav-background, 7%) !default;
 
