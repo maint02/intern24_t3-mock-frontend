@@ -4,6 +4,9 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { IssueModel } from '../model/issue.model';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProjectService} from '../../../core/service/project.service';
+import { StatusService} from '../../../core/service/status.service';
+import { StatusModel } from '../model/status.model';
 
 
 @Component({
@@ -12,19 +15,31 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./issue-insert.component.css']
 })
 export class IssueInsertComponent implements OnInit {
-  public apiAllProject = 'http://localhost:8082/api/project/get-All';
   projectIdSelected: number;
   listProject: ProjectModel[] = [];
+  listStatus: StatusModel[] = [];
   public Editor = ClassicEditor;
   issue: IssueModel = new IssueModel;
   constructor(
-    private http: HttpClient
+    private projectService: ProjectService,
+    private statusService: StatusService
   ) { }
 
   ngOnInit() {
-    this.http.get(this.apiAllProject).subscribe((res: any) => {
+    this.getAllProject();
+    this.getAllStatusOfIssue();
+  }
+  getAllProject() {
+    this.projectService.getAll().subscribe((res: any) => {
       if (res.responseCode === 1) {
         this.listProject = res.dataResponse;
+      }
+    });
+  }
+  getAllStatusOfIssue(){
+    this.statusService.getByTypeId(1).subscribe((res: any) =>{
+      if (res.responseCode === 1) {
+        this.listStatus = res.dataResponse;
       }
     });
   }
@@ -44,5 +59,8 @@ export class IssueInsertComponent implements OnInit {
   }
   handlerPrioritySelected(event: any){
   this.issue.priority = event.target.value;
+  }
+  handlerStatusIdSelected(event: any){
+  this.issue.statusId=event.target.value;
   }
 }

@@ -5,6 +5,8 @@ import { ProjectModel } from '../model/project.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IssueModalComponent } from '../issue-modal/issue-modal.component';
+import { IssueService } from '../../../core/service/issue.service';
+import { ProjectService} from '../../../core/service/project.service';
 
 @Component({
   selector: 'smart-issues',
@@ -14,37 +16,33 @@ import { IssueModalComponent } from '../issue-modal/issue-modal.component';
 export class IssuesComponent implements OnInit, OnChanges {
   constructor(
     private modalService: NgbModal,
-    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    // tslint:disable-next-line: ban-types
+    private issueService: IssueService,
+    private projectService: ProjectService
   ) {
     console.log('==== gọi constructor');
   }
   issueCheckedList: any;
-  issueMasterSelected: boolean = false;
+  issueMasterSelected = false;
   issues: IssueModel[] = [];
-  nameI ='abcs';
   issueSearchDto: IssueModel = new IssueModel;
   pageNumber: any;
   limit = 5;
   page: any = 1;
   pageOption: any = {
     pageSize: 1,
-
     totalRows: 3 // thay thế cái này bằng tổng page truyền từ api ra vì thư viện này ko hõ trợ tổng page
   };
   listProject: ProjectModel[] = [];
   projectIdSelected: any;
   listIdChecked: number[] = [];
-  public apiCallIssues = 'http://localhost:8082/api/issue/get-by-project/';
-  public apiAllProject = 'http://localhost:8082/api/project/get-All';
-  public apiSearchIssueByParams = 'http://localhost:8082/api/issue/get-by-project/';
+
   ngOnInit() {
     // 1.load all project
     // 2. gán các biến cần thiết cho khởi tạo:
     console.log('==== OnInit: IssuesMngComponent');
-    this.http.get(this.apiAllProject).subscribe((res: any) => {
+    this.projectService.getAll().subscribe((res: any) => {
       if (res.responseCode === 1) {
         this.listProject = res.dataResponse;
         this.pageOption.totalRows = 0;
@@ -52,7 +50,7 @@ export class IssuesComponent implements OnInit, OnChanges {
       }
     });
     // hàm checkDataRouterForSearch: kiểm tra url xem có page và id truyền vào không để gọi api
-    this.checkDataRouterForSearch(this.route);
+    //this.checkDataRouterForSearch(this.route);
   }
   ngOnChanges() {
     console.log('===== ngOnChanges');
@@ -62,42 +60,23 @@ export class IssuesComponent implements OnInit, OnChanges {
     this.projectIdSelected = event.target.value;
   }
   onPageChanged(event) {
-    console.log(event);
+    // console.log(event);
+    // this.page = event.page;
+    // const myurl =
+    //   'quan-ly-issues/issues-manager/list-by-project/' +
+    //   this.projectIdSelected +
+    //   '?page=' +
+    //   this.page +
+    //   '';
+    // console.log(myurl);
+    // this.router.navigateByUrl(myurl);
+    // this.route.firstChild.queryParams.subscribe(params => {
+    //   this.page = params.page;
+    //   this.doSearch1();
+    // });
     this.page = event.page;
-    const myurl =
-      'quan-ly-issues/issues-manager/list-by-project/' +
-      this.projectIdSelected +
-      '?page=' +
-      this.page +
-      '';
-    console.log(myurl);
-    this.router.navigateByUrl(myurl);
-    this.route.firstChild.queryParams.subscribe(params => {
-      this.page = params.page;
-      //this.getApiByProjectId(this.page, this.limit, this.projectIdSelected);
-      this.searchIssueByParams();
-    });
+    this.doSearch1();
     this.issueMasterSelected = false;
-  }
-  getApiByProjectId(page: number, limit: number, prId: number) {
-    this.http
-      .get(`${this.apiCallIssues}${prId}?page=${page}&limit=${limit}`)
-      .subscribe((res: any) => {
-        this.issues = res.dataResponse.listData;
-        this.pageOption.totalRows = res.dataResponse.totalPage;
-      });
-  }
-  getApiByProjectIdAndParams(page: number, limit: number, prId: number, issueSearchDto: IssueModel){
-    this.http.post(`${this.apiSearchIssueByParams}${prId}/search/?page=${page}&limit=${limit}`,this.issueSearchDto)
-    .subscribe((res: any ) => {
-      if (res.responseCode === 1) {
-        this.issues = res.dataResponse.listData;
-        this.pageOption.totalRows = res.dataResponse.totalPage;
-      } else {
-        this.issues = [];
-        this.pageOption.totalRows = 0;
-      }
-    });
   }
   doSearch() {
     this.page = 1;
@@ -109,7 +88,10 @@ export class IssuesComponent implements OnInit, OnChanges {
       '';
     console.log(myurl);
     this.router.navigateByUrl(myurl);
-    this.getApiByProjectId(this.page, this.limit, this.projectIdSelected);
+    this.issueService.getByProjectId(this.projectIdSelected, this.page, this.limit).subscribe((res: any) => {
+        this.issues = res.dataResponse.listData;
+        this.pageOption.totalRows = res.dataResponse.totalPage;
+    });
   }
   onCheckboxChange(event) {
     console.log(event);
@@ -136,8 +118,8 @@ export class IssuesComponent implements OnInit, OnChanges {
   }
   isAllSelected() {
     // tslint:disable-next-line: only-arrow-functions
-    this.issueMasterSelected = this.issues.every(function(item: any) { //nếu tất cả đc check thì trả về true
-        return item.isSelected == true; //nếu có một issue ko đc seleted thì false
+    this.issueMasterSelected = this.issues.every(function(item: any) { // nếu tất cả đc check thì trả về true
+        return item.isSelected === true; // nếu có một issue ko đc seleted thì false
       });
     this.getCheckedItemList();
     console.log(this.listIdChecked);
@@ -145,25 +127,19 @@ export class IssuesComponent implements OnInit, OnChanges {
 
   getCheckedItemList() {
     this.listIdChecked = [];
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.issues.length; i++) {
       if (this.issues[i].isSelected) {
       this.listIdChecked.push(this.issues[i].id);
       }
     }
-    //this.checkedList = JSON.stringify(this.checkedList);
+    // this.checkedList = JSON.stringify(this.checkedList);
   }
   doDelete() {
-    // tslint:disable-next-line: ban-types
-    const check: Boolean = confirm('bạn có muốn xóa không?');
+    const check: boolean = confirm('bạn có muốn xóa không?');
     if (check) {
       console.log('làm xóa');
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        body: this.listIdChecked
-      };
-      this.http
-        .delete('http://localhost:8082/api/issue', httpOptions)
-        .subscribe((res: any) => {
+      this.issueService.deleteByIds(this.listIdChecked).subscribe((res: any) => {
           if (res.responseCode === 1) {
             this.listIdChecked = [];
             alert('xóa thành công');
@@ -195,7 +171,7 @@ export class IssuesComponent implements OnInit, OnChanges {
             console.log('page:' + pageUrl);
             this.page = pageUrl;
             // khi này đã có đầy đủ page và projectId:
-            this.getApiByProjectId(
+            this.issueService.getByProjectId(
               this.page,
               this.limit,
               this.projectIdSelected
@@ -212,7 +188,7 @@ export class IssuesComponent implements OnInit, OnChanges {
               '';
             console.log(myurl);
             this.router.navigateByUrl(myurl);
-            this.getApiByProjectId(
+            this.issueService.getByProjectId(
               this.page,
               this.limit,
               this.projectIdSelected
@@ -244,15 +220,24 @@ export class IssuesComponent implements OnInit, OnChanges {
    modalRef.componentInstance.action = action; // truyền sang component con ngmodeltest
    modalRef.componentInstance.issues = issueSendToModal;
    }
-   searchIssueByParams(){
+   doSearch1() {
     console.log(this.issueSearchDto.name);
-    this.getApiByProjectIdAndParams(this.page, this.limit, this.projectIdSelected, this.issueSearchDto);
+    this.issueService.searchByProjectIdAndParams(this.projectIdSelected, this.page, this.limit,  this.issueSearchDto)
+    .subscribe((res: any ) => {
+      if (res.responseCode === 1) {
+        this.issues = res.dataResponse.listData;
+        this.pageOption.totalRows = res.dataResponse.totalPage;
+      } else {
+        this.issues = [];
+        this.pageOption.totalRows = 0;
+      }
+    });
    }
    handlerPrioritySelected(event: any) {
     console.log(event.target.value);
     this.issueSearchDto.priority = event.target.value;
   }
-  handlerLevelDonePercentSelected(event: any){
+  handlerLevelDonePercentSelected(event: any) {
     console.log(event.target.value);
     this.issueSearchDto.donePercent = event.target.value;
   }

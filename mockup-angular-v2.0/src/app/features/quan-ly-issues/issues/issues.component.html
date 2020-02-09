@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="form-group col-md-3">
-        <select (change)="handlerProjectIdSelected($event)" id="project">
+        <select (change)="handlerProjectIdSelected($event)" id="project" class="form-control">
     <option [value]="null"> -- Chọn Project --</option>
     <option
       *ngFor="let pr of listProject"
@@ -9,23 +9,23 @@
       >{{ pr.name }}</option
     >
   </select>
-        <button type="button" class="btn btn-default btn-xs ml-2" (click)="doSearch()" [disabled]="
+        <!-- <button type="button" class="btn btn-default btn-xs ml-2" (click)="doSearch1()" [disabled]="
       projectIdSelected == 'null' || projectIdSelected == undefined
     ">
     Lọc
-  </button>
+  </button> -->
     </div>
 </div>
 <div class="panel">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                 <label class="mr-3">Tên vấn đề </label>
-                <input type="text" placeholder=" Nhập tên" [(ngModel)]="issueSearchDto.name">
+                <input type="text" placeholder=" Nhập tên" [(ngModel)]="issueSearchDto.name" class="form-control">
             </div>
             <div class="col-md-4">
                 <label class="mr-3">Mức độ </label>
-                <select (change)="handlerPrioritySelected($event)">
+                <select (change)="handlerPrioritySelected($event)" class="form-control">
                 <option value=""> --Chọn mức độ --</option>
                 <option value="Dễ">Dễ</option>
                 <option value="Trung bình">Trung bình</option>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-4">
                 <label class="mr-3">Mức hoàn thành </label>
-                <select (change)="handlerLevelDonePercentSelected($event)">
+                <select (change)="handlerLevelDonePercentSelected($event)" class="form-control">
               <option value="0"> -- Chọn %--</option>
               <option value="1">0->30%</option>
               <option value="2">31-50%</option>
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group row text-center mt-3">
             <div class="col-md-12">
-                <button type="button" (click)="searchIssueByParams()" class="btn btn-info" [disabled]="projectIdSelected == 'null' || projectIdSelected == undefined">
+                <button type="button" (click)="doSearch1()" class="btn btn-info" [disabled]="projectIdSelected == 'null' || projectIdSelected == undefined">
                   <i class="far fa-search"></i> Tìm kiếm
               </button>
             </div>
@@ -60,7 +60,7 @@
     </button>
 <table class="table table-striped">
     <thead>
-        <tr class="bg-primary">
+        <tr class='text-white bg-info'>
             <th scope="col">
                 <input type="checkbox" [value]="true" style="width: 15px; height: 15px;" [(ngModel)]="issueMasterSelected" (change)="checkUncheckAll()" />
             </th>
@@ -81,7 +81,7 @@
                 <input type="checkbox" [value]="item.id" (change)="isAllSelected()" [(ngModel)]="item.isSelected" />
             </th>
             <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
+            <td style="max-width: 250px;">{{ item.name }}</td>
             <td>{{ item.donePercent }} %</td>
             <td>{{ item.dueDate }}</td>
             <td>{{ item.type }}</td>

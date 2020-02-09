@@ -56,15 +56,15 @@
             </div>
             <!-- End row group-->
             <!-- start row group-->
-            <div class="form-group col-md-12">
+            <!-- <div class="form-group col-md-12">
                 <div class="form-group row">
                     <label class="col-md-2 col-sm-6 col-form-label form-label">Mô tả:</label>
                     <div class="col-md-10 col-sm-6">
                         <ckeditor [editor]="Editor" (change)="onChange($event)"></ckeditor>
                     </div>
                 </div>
-            </div>
-            <!-- End row group-->
+            </div> -->
+            <!-- End row group -->
             <!-- start row group-->
             <div class="form-group col-md-12">
                 <div class="form-group row">
@@ -76,6 +76,19 @@
                             <option value="Trung bình">Trung bình</option>
                             <option value="Khó">Khó</option>
                         </select>
+                    </div>
+                </div>
+            </div>
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Chọn Trạng thái:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select (change)="handlerStatusIdSelected($event)" class="form-control" id="project">
+                        <option [value]="null"> -- Chọn Project --</option>
+                        <option *ngFor="let status of listStatus" [value]="status.id" [selected]="projectIdSelected==status.id">{{ status.name }}</option>
+                      </select>
                     </div>
                 </div>
             </div>

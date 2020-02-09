@@ -23,10 +23,15 @@ export const NavigationItems = [
                 icon: 'far fa-tasks',
                 items: [
                     {
-                        title: 'List Issues',
+                        title: 'Danh Sách',
                         tags: 'Thêm mới/sửa/xóa Issues',
-                        routerLink: '/quan-ly-issues',
-                    }
+                        routerLink: '/quan-ly-issues/list-issue',
+                    },
+                    {
+                        title: 'Thêm mới',
+                        tags: 'Thêm mới/sửa/xóa Issues',
+                        routerLink: '/quan-ly-issues/add-issue',
+                    },
                 ]
             },
 
