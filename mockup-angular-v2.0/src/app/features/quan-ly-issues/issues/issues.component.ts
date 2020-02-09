@@ -143,7 +143,7 @@ export class IssuesComponent implements OnInit, OnChanges {
           if (res.responseCode === 1) {
             this.listIdChecked = [];
             alert('xóa thành công');
-            window.location.reload();
+            this.doSearch1();
           } else {
             alert('xóa thất bại!');
           }

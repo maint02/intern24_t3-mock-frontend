@@ -34,4 +34,16 @@ export class IssueService {
             return throwError(err);
         }));
     }
+    add(issue: IssueModel): Observable<any> {
+        return this.http.post(`${environment.api_url}/issue`, issue)
+        .pipe(catchError(err => {
+            return throwError(err);
+        }));
+    }
+    getById(id: number): Observable<any> {
+        return this.http.get(`${environment.api_url}/issue/${id}`)
+        .pipe(catchError(err => {
+            return throwError(err);
+        }));
+    }
 }

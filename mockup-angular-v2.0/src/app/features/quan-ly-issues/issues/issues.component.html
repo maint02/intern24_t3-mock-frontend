@@ -88,7 +88,10 @@
             <td>{{ item.priority }}</td>
             <td>{{ item.statusName }}</td>
             <td style="min-width:170px;">
-                <button class="btn btn-sm btn-info" (click)="openModal('xem', item.id)">
+                <!-- <button class="btn btn-sm btn-info" (click)="openModal('xem', item.id)">
+              Xem
+            </button> -->
+                <button class="btn btn-sm btn-info" [routerLink]="[ '/quan-ly-issues/view-issue', item.id ]">
               Xem
             </button>
                 <button class="btn btn-sm btn-warning ml-3" (click)="openModal('sua', item.id)">

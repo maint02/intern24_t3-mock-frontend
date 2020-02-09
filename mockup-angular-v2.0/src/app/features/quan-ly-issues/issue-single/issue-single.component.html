@@ -1,0 +1,39 @@
+<div class="panel">
+    <div class="card-body">
+        <h3 class="font-weight-bold">#{{issues.id}}: {{issues.name}}</h3>
+        <div class="row">
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Ngày bắt đầu: </label>
+                <p>{{issues.startDate}}</p>
+            </div>
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Mức độ: </label>
+                <p>{{issues.priority}}</p>
+            </div>
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Tiến độ: </label>
+                <p>{{issues.donePercent}} %</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Loại vấn đề: </label>
+                <p>{{issues.type}}</p>
+            </div>
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Trạng thái: </label>
+                <p>{{issues.statusName}}</p>
+            </div>
+            <div class="col-md-4 ">
+                <label class="mr-3 font-weight-bold">Số giờ: </label>
+                <p>{{issues.dueDate}} %</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <label class="mr-3 font-weight-bold">Mô tả: </label>
+                <p>{{issues.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

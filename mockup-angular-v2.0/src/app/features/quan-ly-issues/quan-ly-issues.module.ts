@@ -10,9 +10,10 @@ import { IssueModalComponent } from './issue-modal/issue-modal.component';
 import { IssueInsertComponent } from './issue-insert/issue-insert.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { IssueMngComponent } from './issue-mng.component';
+import { IssueSingleComponent } from './issue-single/issue-single.component';
 
 @NgModule({
-  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent, IssueMngComponent],
+  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent, IssueMngComponent, IssueSingleComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -36,6 +37,7 @@ import { IssueMngComponent } from './issue-mng.component';
           { path: 'list-by-project/:projectId', component: IssuesComponent},
           { path: 'list-issue', component: IssuesComponent},
           { path: 'add-issue', component: IssueInsertComponent },
+          { path: 'view-issue/:issueId', component: IssueSingleComponent },
         ]
       },
     ])
