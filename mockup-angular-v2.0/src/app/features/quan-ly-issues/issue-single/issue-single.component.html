@@ -38,48 +38,42 @@
         </div>
     </div>
 </div>
-<!-- <button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerComment()" *ngIf="isCommentClick==false">Bình Luận</button>
-<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUnComment()" *ngIf="isCommentClick==true">Hủy Bình Luận</button> -->
-<div *ngIf="isCommentClick==true">
-    <div class="panel">
-        <div class="card-body">
-            <label class="mr-3 font-weight-bold">Bình luận: </label>
-            <div class="row">
-                <div class="col-md-12">
-                    <textarea class="form-control" name="" id="" cols="70" rows="7" placeholder="Nhập bình luận"></textarea>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary mb-3 mr-3 mt-3" (click)="doComment()">Bình luận</button>
-        </div>
-    </div>
-</div>
-
-<div>
-    <label class="mr-3 font-weight-bold">Lịch sử: </label>
-    <div class="panel">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>#1</h3>
-                    <span>Cập nhật bởi: </span>
-                    <span>Cập nhật lúc: </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>#1</h3>
-                    <span>Cập nhật bởi: </span>
-                    <span>Cập nhật lúc: </span>
+<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerOpenHistory()" *ngIf="showHistory==false">Lịch sử</button>
+<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerCloseHistory()" *ngIf="showHistory==true">Ẩn lịch sử</button>
+<div *ngIf="showHistory==true">
+    <div>
+        <label class="mr-3 font-weight-bold">Lịch sử: </label>
+        <div *ngFor="let item of listIssueHistory; let i = index ">
+            <div class="panel">
+                <div class="card-body">
+                    <div class="row">
+                        <span class="mr-3 font-weight-bold "> #{{i+1}} </span>
+                        <div class="col-md-4">
+                            <p>Cập nhật bởi: <b>{{item.updatePersonName}} </b></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Cập nhật lúc:<b> {{item.updateDate|date}}</b> </p>
+                        </div>
+                        <div class="ml-3 col-md-4">
+                            <span>Trạng thái đổi từ:</span>
+                            <b>{{item.statusOld}}</b> ->
+                            <b>{{item.statusNew}}</b>
+                        </div>
+                        <div class="ml-3 col-md-4">
+                            <span>Tiến độ đổi từ:</span>
+                            <b>{{item.donePercentOld}} %</b> ->
+                            <b>{{item.donePercentNew}} %</b>
+                        </div>
+                        <div class="ml-3 col-md-12">
+                            <label class="mr-3 font-weight-bold ">Ghi chú: </label>
+                            <p>{{item.comments}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUpdate()" *ngIf="isUpdateClick==false">Cập nhật</button>
 <button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUnUpdate()" *ngIf="isUpdateClick==true">Hủy Cập Nhật</button>
 

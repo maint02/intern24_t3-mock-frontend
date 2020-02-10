@@ -53,4 +53,10 @@ export class IssueService {
             return throwError(err);
         }));
     }
+    getHistoryById(issueId: number): Observable<any> {
+        return this.http.get(`${environment.api_url}/issue-history/${issueId}`)
+        .pipe(catchError(err => {
+            return throwError(err);
+        }));
+    }
 }

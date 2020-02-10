@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StatusService} from '../../../core/service/status.service';
 import { StatusModel } from '../model/status.model';
 import { IssueUpdateModel } from '../model/issueUpdate.model';
+import { IssueHistoryModel } from '../model/issueHistory.model';
 
 @Component({
   selector: 'smart-issue-single',
@@ -14,8 +15,9 @@ import { IssueUpdateModel } from '../model/issueUpdate.model';
 export class IssueSingleComponent implements OnInit {
   issues: IssueModel = new IssueModel;
   issueUpdate: IssueUpdateModel =new IssueUpdateModel;
+  listIssueHistory: IssueHistoryModel[] =[];
   isUpdateClick = false;
-  isCommentClick = false;
+  showHistory = false;
   listDonePercent: number [] = [10,20,30,40,50,60,70,80,90,100];
   listStatus: StatusModel[] = [];
   constructor(
@@ -30,15 +32,24 @@ export class IssueSingleComponent implements OnInit {
       this.issueService.getById(id).subscribe((res: any) => {
         if (res.responseCode === 1) {
           this.issues = res.dataResponse;
+          this.getAllHistoryByIssueId(this.issues.id);
         }
       });
     }
-    this.getAllStatusOfIssue();
+    this.getAllStatusOfIssue();  
   }
   getAllStatusOfIssue() {
     this.statusService.getByTypeId(1).subscribe((res: any) => {
       if (res.responseCode === 1) {
         this.listStatus = res.dataResponse;
+      }
+    });
+  }
+  getAllHistoryByIssueId(issueId: number){
+    this.issueService.getHistoryById(issueId).subscribe((res: any)=>{
+      if(res.responseCode===1){
+        this.listIssueHistory=res.dataResponse;
+        console.log(this.listIssueHistory);
       }
     });
   }
@@ -60,11 +71,11 @@ export class IssueSingleComponent implements OnInit {
       }
     }));
   }
-  handlerComment() {
-    this.isCommentClick = true;
+  handlerOpenHistory() {
+    this.showHistory = true;
   }
-  handlerUnComment() {
-    this.isCommentClick = false;
+  handlerCloseHistory() {
+    this.showHistory = false;
   }
   doComment() {}
 
