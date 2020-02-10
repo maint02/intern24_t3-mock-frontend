@@ -6,7 +6,7 @@ import {StateStorageService} from '../auth/state-storage.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RegisterService} from './register.service';
 import {AlertService} from '../../shared/dialogs/sweet-alert/alert.service';
-import {isRegExp} from 'util';
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
     selector: 'smart-register',
@@ -32,8 +32,11 @@ export class RegisterComponent implements OnInit {
     regExpPhone: any;
     regExpEmail: any;
     regExpUsername: any;
+    angForm: FormGroup;
+
 
     constructor(
+        // private $localStorage: LocalStorageService,
         private registerService: RegisterService,
         private accountService: AccountService,
         private fb: FormBuilder,
@@ -43,7 +46,13 @@ export class RegisterComponent implements OnInit {
         private renderer: Renderer2,
         private spinnerService: NgxSpinnerService
     ) {
-
+        this.createForm();
+    }
+    createForm() {
+        this.angForm = this.fb.group({
+            username: ['', Validators.required ],
+            address: ['', Validators.required ]
+        });
     }
 
     ngOnInit() {
@@ -65,7 +74,6 @@ export class RegisterComponent implements OnInit {
             message: '',
             icon: 'warning'
         };
-        // debugger;
         if (this.registerForm.value.username == null) {
             alertObject.message = 'Username không được để trống';
             this.alertService.fire(alertObject);
@@ -83,7 +91,7 @@ export class RegisterComponent implements OnInit {
             this.alertService.fire(alertObject);
             return false;
         }
-        if (this.registerForm.value.fullName == null){
+        if (this.registerForm.value.fullName == null) {
             alertObject.message = 'Họ tên không được để trống';
             this.alertService.fire(alertObject);
             return false;
@@ -93,7 +101,7 @@ export class RegisterComponent implements OnInit {
             this.alertService.fire(alertObject);
             return false;
         }
-        if (this.registerForm.value.birthday == null){
+        if (this.registerForm.value.birthday == null) {
             alertObject.message = 'Ngày sinh không được để trống';
             this.alertService.fire(alertObject);
             return false;
@@ -124,8 +132,6 @@ export class RegisterComponent implements OnInit {
                 return false;
             }
         }
-        console.log('\'' + this.registerForm.value.graduatedYear + '\'');
-
         // if (this.registerForm.invalid) {
         //     alertObject.message = 'Điền thông tin chưa đúng, xin vui lòng kiểm tra lại';
         //     alertObject.icon = 'warning';
@@ -137,10 +143,12 @@ export class RegisterComponent implements OnInit {
         this.registerService.register(this.registerForm.value).subscribe
         (
             (res) => {
-                alertObject.message = 'Đăng ký thành công, vui lòng kiểm tra email để biết mật khẩu đăng nhập';
-                alertObject.icon = 'success';
-                this.alertService.fire(alertObject);
+                // alertObject.message = 'Đăng ký thành công, vui lòng kiểm tra email để biết mật khẩu đăng nhập';
+                // alertObject.icon = 'success';
+                // this.alertService.fire(alertObject);
                 this.registerForm.reset();
+                localStorage.setItem('register-success', 'true');
+                this.redirectToLogin();
             },
             (err) => {
                 // alertObject here
@@ -167,5 +175,7 @@ export class RegisterComponent implements OnInit {
         );
     }
 
-
+    redirectToLogin() {
+        this.router.navigate(['login']);
+    }
 }

@@ -9,11 +9,9 @@ import { IssuesComponent } from './issues/issues.component';
 import { IssueModalComponent } from './issue-modal/issue-modal.component';
 import { IssueInsertComponent } from './issue-insert/issue-insert.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { IssueMngComponent } from './issue-mng.component';
-import { IssueSingleComponent } from './issue-single/issue-single.component';
 
 @NgModule({
-  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent, IssueMngComponent, IssueSingleComponent],
+  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -23,23 +21,21 @@ import { IssueSingleComponent } from './issue-single/issue-single.component';
     ReactiveFormsModule,
     CKEditorModule,
     RouterModule.forChild([
-      // { path: '', pathMatch: 'full', redirectTo: 'issues-manager', },
+      { path: '', pathMatch: 'full', redirectTo: 'issues-manager', },
       // {
       //   path: 'issue-mng',
       //   component: IssuesMngComponent,
       //   children: [{ path: 'list-by-project/:projectId', component: ListIssuesComponent }]
       // },
       {
-        path: '',
-        component: IssueMngComponent,
+        path: 'issues-manager',
+        component: IssuesComponent,
         data: { breadcrumbs: ['QuanLyIssues', ''] },
         children: [
-          { path: 'list-by-project/:projectId', component: IssuesComponent},
-          { path: 'list-issue', component: IssuesComponent},
-          { path: 'add-issue', component: IssueInsertComponent },
-          { path: 'view-issue/:issueId', component: IssueSingleComponent },
+          { path: 'list-by-project/:projectId', component: IssuesComponent },
         ]
       },
+      { path: 'add-issue', component: IssueInsertComponent },
     ])
   ],
 

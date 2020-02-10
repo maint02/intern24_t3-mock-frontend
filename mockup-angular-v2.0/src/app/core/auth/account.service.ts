@@ -6,6 +6,8 @@ import {map, shareReplay, tap} from 'rxjs/operators';
 
 import {SERVER_API_URL} from '../../app.constants';
 import {Account} from '../../shared/model/user/account.model';
+import {environment} from '../../../environments/environment';
+import {USER_TYPE_AUTHORITIES} from './user-type-authorities';
 
 @Injectable({providedIn: 'root'})
 export class AccountService {
@@ -13,7 +15,7 @@ export class AccountService {
     private authenticated = false;
     private authenticationState = new Subject<any>();
     private accountCache$: Observable<Account>;
-    private resource_url = '/api?path=GetEmployeeInfo';
+    private resourceUrl = 'user/get/';
 
     constructor(
         private sessionStorage: SessionStorageService,
@@ -23,46 +25,30 @@ export class AccountService {
     }
 
     fetch(): Observable<Account> {
-        const logged_user = this.localStorage.retrieve('logged_user');
-        const body = {
-            header: {
-                reqType: 'REQUEST',
-                trusted: 'false'
-
-            },
-            body: {
-                command: 'GetEmployeeInfo',
-                userID: logged_user,
-                emp_code: ''
-            }
-        };
-        // return this.http.post<HttpResponse<any>>(SERVER_API_URL + this.resource_url, body, {observe: "response"}).pipe(
-        //     map((response: HttpResponse<any>) => {
-        //         let account: Account;
-        //         account = Object.assign(new Account(), response.body.body.datares[0]);
-        //         account.authorities = USER_TYPE_AUTHORITIES[account.type];
-        //         this.localStorage.store('sb_code', account.emp_code);
-        //         return account;
-        //     })
-        // );
-        const account = {
-            username: 'admin',
-            authorities: ['ROLE_CBNV', 'ROLE_HR', 'ROLE_QUANLY', 'ROLE_ADMIN'],
-            type: '1',
-            activated: true
-        };
-        return of(account);
+        const loggedUser = this.localStorage.retrieve('logged_user');
+        return this.http.get<HttpResponse<any>>(SERVER_API_URL + this.resourceUrl + loggedUser, {observe: "response"}).pipe(
+            map((response: HttpResponse<any>) => {
+                let account: Account;
+                account = Object.assign(new Account(), response.body);
+                account.authorities = USER_TYPE_AUTHORITIES[account.roleId];
+                this.localStorage.store('sb_code', account.username);
+                return account;
+            })
+        );
     }
 
     save(account: Account): Observable<Account> {
-        return this.http.post<Account>(SERVER_API_URL + 'api/account', account);
+        return this.http.post<Account>(environment.api_url + 'account', account);
     }
+
     register(account: Account): Observable<Account> {
-        return this.http.post<Account>(SERVER_API_URL + 'user/register', account);
+        return this.http.post<Account>(environment.api_url + 'user/register', account);
     }
+
     activeAccount(account: Account): Observable<Account> {
-        return this.http.get<Account>(SERVER_API_URL + 'user/active-account/{username}');
+        return this.http.get<Account>(environment.api_url + 'user/active-account/{username}');
     }
+
     authenticate(identity) {
         this.userIdentity = identity;
         this.authenticated = identity !== null;
@@ -123,6 +109,10 @@ export class AccountService {
 
     isAuthenticated(): boolean {
         return this.authenticated;
+    }
+
+    logout(): void {
+        this.authenticated = false;
     }
 
     isIdentityResolved(): boolean {

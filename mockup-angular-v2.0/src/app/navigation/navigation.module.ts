@@ -10,7 +10,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {NavItemComponent} from './nav-item/nav-item.component';
 import {NavFooterComponent} from './nav-footer/nav-footer.component';
 import {UtilsModule} from '../shared/utils/utils.module';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
     declarations: [

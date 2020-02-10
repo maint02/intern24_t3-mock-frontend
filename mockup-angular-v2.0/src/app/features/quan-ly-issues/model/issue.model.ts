@@ -2,9 +2,9 @@ export class IssueModel {
     constructor() {}
     public  id: number ;
 
-    public  startDate?: string;
+    public  startDate?: Date;
 
-    public  dueDate?: number;
+    public  dueDate?: Date;
 
     public  name?: string;
 

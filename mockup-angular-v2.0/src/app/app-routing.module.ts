@@ -5,7 +5,6 @@ import {LayoutModule} from './layout/layout.module';
 import {errorRoute} from './layout/error/error.route';
 import {UserRouteAccessService} from './core/auth/user-route-access-service';
 import {RegisterComponent} from './core/register/register.component';
-import {HomeComponent} from './core/home/home.component';
 import {LoginComponent} from './core/login/login.component';
 import {LoginAltComponent} from './core/login_alt/login-alt.component';
 
@@ -41,10 +40,10 @@ const routes: Routes = [
             {
                 path: 'employee-manager',
                 loadChildren: () => import('./features/employee-manager/emp-mng.module').then(m => m.EmpMngModule),
-                // canActivate:[UserRouteAccessService],
-                // data:{
-                //     authorities: ['ROLE_ADMIN']
-                // }
+                canActivate: [UserRouteAccessService],
+                data: {
+                    authorities: ['MANAGER', 'HR']
+                }
             },
 
         ]

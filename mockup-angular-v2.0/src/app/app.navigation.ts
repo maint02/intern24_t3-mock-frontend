@@ -23,27 +23,26 @@ export const NavigationItems = [
                 icon: 'far fa-tasks',
                 items: [
                     {
-                        title: 'Danh Sách',
+                        title: 'List Issues',
                         tags: 'Thêm mới/sửa/xóa Issues',
-                        routerLink: '/quan-ly-issues/list-issue',
-                    },
-                    {
-                        title: 'Thêm mới',
-                        tags: 'Thêm mới/sửa/xóa Issues',
-                        routerLink: '/quan-ly-issues/add-issue',
-                    },
+                        routerLink: '/quan-ly-issues',
+                    }
                 ]
             },
-
             {
                 title: 'Quản lý nhân viên',
                 tags: 'Quản lý nhân viên',
                 icon: 'far fa-tasks',
                 items: [
                     {
-                        title: 'Thêm/sửa/xoá nhân viên',
-                        tags: 'Thêm/sửa/xoá nhân viên',
+                        title: 'Danh sách nhân viên',
+                        tags: 'Danh sách nhân viên',
                         routerLink: '/employee-manager',
+                        icon: 'far fa-tasks',
+                    },{
+                        title: 'Thêm mới nhân viên',
+                        tags: 'Thêm mới nhân viên',
+                        routerLink: '/add-employee',
                         icon: 'far fa-tasks',
                     }
                     ]

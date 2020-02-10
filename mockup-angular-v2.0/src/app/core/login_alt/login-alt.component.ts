@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from '../login/login.service';
-import {AccountService} from '../auth/account.service';
-import {FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
-import {StateStorageService} from '../auth/state-storage.service';
+import {LoginService} from "../login/login.service";
+import {AccountService} from "../auth/account.service";
+import {FormBuilder} from "@angular/forms";
+import {Router} from "@angular/router";
+import {StateStorageService} from "../auth/state-storage.service";
 
 @Component({
     selector: 'smart-login',
@@ -48,7 +48,7 @@ export class LoginAltComponent implements OnInit {
                     }
                 },
                 (err) => {
-                    //console.info('co loi xay ra');
+                    console.info('co loi xay ra');
                 }
             );
     }
