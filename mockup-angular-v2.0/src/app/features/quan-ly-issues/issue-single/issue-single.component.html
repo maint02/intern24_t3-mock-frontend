@@ -1,39 +1,117 @@
 <div class="panel">
     <div class="card-body">
-        <h3 class="font-weight-bold">#{{issues.id}}: {{issues.name}}</h3>
+        <h3 class="font-weight-bold">#{{ issues.id }}: {{ issues.name }}</h3>
         <div class="row">
             <div class="col-md-4 ">
                 <label class="mr-3 font-weight-bold">Ngày bắt đầu: </label>
-                <p>{{issues.startDate}}</p>
+                <p>{{ issues.startDate }}</p>
             </div>
             <div class="col-md-4 ">
                 <label class="mr-3 font-weight-bold">Mức độ: </label>
-                <p>{{issues.priority}}</p>
+                <p>{{ issues.priority }}</p>
             </div>
             <div class="col-md-4 ">
-                <label class="mr-3 font-weight-bold">Tiến độ: </label>
-                <p>{{issues.donePercent}} %</p>
+                <label class="mr-3 font-weight-bold">Số giờ: </label>
+                <p>{{ issues.dueDate }}</p>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-4 ">
                 <label class="mr-3 font-weight-bold">Loại vấn đề: </label>
-                <p>{{issues.type}}</p>
+                <p>{{ issues.type }}</p>
             </div>
             <div class="col-md-4 ">
-                <label class="mr-3 font-weight-bold">Trạng thái: </label>
-                <p>{{issues.statusName}}</p>
+                <label class="mr-3 font-weight-bold"> * Trạng thái: </label>
+                <p>{{ issues.statusName }}</p>
             </div>
             <div class="col-md-4 ">
-                <label class="mr-3 font-weight-bold">Số giờ: </label>
-                <p>{{issues.dueDate}} %</p>
+                <label class="mr-3 font-weight-bold">* Tiến độ: </label>
+                <p>{{ issues.donePercent }} %</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 ">
                 <label class="mr-3 font-weight-bold">Mô tả: </label>
-                <p>{{issues.description}}</p>
+                <p>{{ issues.description }}</p>
             </div>
+        </div>
+    </div>
+</div>
+<!-- <button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerComment()" *ngIf="isCommentClick==false">Bình Luận</button>
+<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUnComment()" *ngIf="isCommentClick==true">Hủy Bình Luận</button> -->
+<div *ngIf="isCommentClick==true">
+    <div class="panel">
+        <div class="card-body">
+            <label class="mr-3 font-weight-bold">Bình luận: </label>
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea class="form-control" name="" id="" cols="70" rows="7" placeholder="Nhập bình luận"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3 mr-3 mt-3" (click)="doComment()">Bình luận</button>
+        </div>
+    </div>
+</div>
+
+<div>
+    <label class="mr-3 font-weight-bold">Lịch sử: </label>
+    <div class="panel">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>#1</h3>
+                    <span>Cập nhật bởi: </span>
+                    <span>Cập nhật lúc: </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>#1</h3>
+                    <span>Cập nhật bởi: </span>
+                    <span>Cập nhật lúc: </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUpdate()" *ngIf="isUpdateClick==false">Cập nhật</button>
+<button type="submit" class="btn btn-xs btn-info mb-3 mr-2" (click)="handlerUnUpdate()" *ngIf="isUpdateClick==true">Hủy Cập Nhật</button>
+
+<div *ngIf="isUpdateClick==true">
+    <div class="panel">
+        <div class="card-body">
+            <label class="mr-3 font-weight-bold">Cập nhật thuộc tính: </label>
+            <div class="row">
+                <div class="col-md-4 ">
+                    <label class="mr-3">Trạng thái</label>
+                    <select (change)="handlerStatusSelected($event)" class="form-control">
+                      <option value="0"> -- Chọn trạng thái--</option>
+                      <option [value]="item.id" *ngFor="let item of listStatus">{{item.name}}</option>
+                     
+                    </select>
+                </div>
+                <div class="col-md-2 ">
+                    <label class="mr-3">Tiến độ: </label>
+                    <select (change)="handlerPercentSelected($event)" class="form-control">
+                      <option value=""> -- Chọn %--</option>
+                      <option *ngFor="let item of listDonePercent" [value]="item">{{item}}%</option>
+                      
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="mr-3 font-weight-bold">Ghi chú: </label>
+                    <textarea class="form-control" name="" id="" cols="70" rows="7" placeholder="Nhập ghi chú" [(ngModel)]="issueUpdate.comments"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3 mr-3 mt-3" (click)="doUpdate()">Cập nhật</button>
         </div>
     </div>
 </div>

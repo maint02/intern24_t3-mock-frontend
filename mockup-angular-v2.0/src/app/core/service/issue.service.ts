@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import {environment} from '../../../environments/environment';
 import { IssueModel } from 'src/app/features/quan-ly-issues/model/issue.model';
+import { IssueUpdateModel } from 'src/app/features/quan-ly-issues/model/issueUpdate.model';
 
 @Injectable({providedIn: 'root'})
 export class IssueService {
@@ -42,6 +43,12 @@ export class IssueService {
     }
     getById(id: number): Observable<any> {
         return this.http.get(`${environment.api_url}/issue/${id}`)
+        .pipe(catchError(err => {
+            return throwError(err);
+        }));
+    }
+    update(issueUpdate: IssueUpdateModel): Observable<any> {
+        return this.http.put(`${environment.api_url}/issue`, issueUpdate)
         .pipe(catchError(err => {
             return throwError(err);
         }));
