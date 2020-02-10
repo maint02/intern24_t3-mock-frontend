@@ -1,0 +1,103 @@
+<div class="row mb-3">
+    <div class="form-group col-md-3">
+        <select (change)="handlerProjectIdSelected($event)" id="project">
+    <option [value]="null"> -- Chọn Project --</option>
+    <option
+      *ngFor="let pr of listProject"
+      [value]="pr.id"
+      [selected]="projectIdSelected == pr.id"
+      >{{ pr.name }}</option
+    >
+  </select>
+        <button type="button" class="btn btn-default btn-xs ml-2" (click)="doSearch()" [disabled]="
+      projectIdSelected == 'null' || projectIdSelected == undefined
+    ">
+    Lọc
+  </button>
+    </div>
+</div>
+<div class="panel">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="mr-3">Tên vấn đề </label>
+                <input type="text" placeholder=" Nhập tên" [(ngModel)]="issueSearchDto.name">
+            </div>
+            <div class="col-md-4">
+                <label class="mr-3">Mức độ </label>
+                <select (change)="handlerPrioritySelected($event)">
+                <option value=""> --Chọn mức độ --</option>
+                <option value="Dễ">Dễ</option>
+                <option value="Trung bình">Trung bình</option>
+                <option value="Khó">Khó</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+                <label class="mr-3">Mức hoàn thành </label>
+                <select (change)="handlerLevelDonePercentSelected($event)">
+              <option value="0"> -- Chọn %--</option>
+              <option value="1">0->30%</option>
+              <option value="2">31-50%</option>
+              <option value="3">51-80%</option>
+              <option value="4">81-100%</option>
+            </select>
+            </div>
+        </div>
+        <div class="form-group row text-center mt-3">
+            <div class="col-md-12">
+                <button type="button" (click)="searchIssueByParams()" class="btn btn-info" [disabled]="projectIdSelected == 'null' || projectIdSelected == undefined">
+                  <i class="far fa-search"></i> Tìm kiếm
+              </button>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-sm btn-primary mb-3 mt-3" (click)="doDelete()" [disabled]="listIdChecked.length == 0">
+      Xóa
+    </button>
+<button class="btn btn-sm btn-success mb-3 mt-3 ml-3" [routerLink]="['/quan-ly-issues/add-issue']">
+      Thêm mới
+    </button>
+<table class="table table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th scope="col">
+                <input type="checkbox" [value]="true" style="width: 15px; height: 15px;" [(ngModel)]="issueMasterSelected" (change)="checkUncheckAll()" />
+            </th>
+
+            <th scope="col">Id</th>
+            <th scope="col">Tên vấn đề</th>
+            <th scope="col">Mức hoàn thành</th>
+            <th scope="col">DueDate</th>
+            <th scope="col">Loại</th>
+            <th scope="col">Mức độ</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of issues">
+            <th scope="row">
+                <input type="checkbox" [value]="item.id" (change)="isAllSelected()" [(ngModel)]="item.isSelected" />
+            </th>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.donePercent }} %</td>
+            <td>{{ item.dueDate }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.priority }}</td>
+            <td>{{ item.statusName }}</td>
+            <td style="min-width:170px;">
+                <button class="btn btn-sm btn-info" (click)="openModal('xem', item.id)">
+              Xem
+            </button>
+                <button class="btn btn-sm btn-warning ml-3" (click)="openModal('sua', item.id)">
+              Sửa
+            </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="table-responsive d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [totalItems]="pageOption.totalRows" [itemsPerPage]="pageOption.pageSize" [maxSize]="5" (pageChanged)="onPageChanged($event)" [(ngModel)]="pageNumber" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</div>

@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <div *ngIf="action === 'xem'">
+    <h4 class="modal-title">View Issue</h4>
+  </div>
+  <div *ngIf="action === 'sua'">
+    <h4 class="modal-title">Edit Issue</h4>
+  </div>
+</div>
+<div class="modal-body">
+  <p>thông tin issues</p>
+  <div *ngIf="action==='xem';else elseBlock">
+  <input class="form-control" [(ngModel)] = "issues.id" disabled>
+  <input class="form-control" [(ngModel)] = "issues.name" disabled >
+  <input class="form-control" [(ngModel)] = "issues.donePercent" disabled>
+  <input class="form-control" [(ngModel)] = "issues.startDate" disabled>
+  <input class="form-control" [(ngModel)] = "issues.priority" disabled >
+  <input class="form-control" [(ngModel)] = "issues.type" disabled>
+</div>
+<ng-template #elseBlock>
+  <div class="form-group">
+    <input class="form-control" [ngModel] = "issues.id" >
+  <input class="form-control" [ngModel] = "issues.name"  >
+  <input class="form-control" [ngModel] = "issues.donePercent" >
+  <input class="form-control" [ngModel] = "issues.startDate" >
+  <input class="form-control" [ngModel] = "issues.priority"  >
+  <input class="form-control" [ngModel] = "issues.type" >
+  </div>
+  <button ngbAutofocus type="button" class="btn btn-primary" (click)="updateIssue(issues.id)">Update</button>
+</ng-template>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>

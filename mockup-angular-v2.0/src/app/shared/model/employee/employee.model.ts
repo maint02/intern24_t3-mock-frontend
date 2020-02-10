@@ -29,8 +29,8 @@ export class Employee {
         public teamName?: string,
 
         public rememberMe?: boolean,
-        public authorities?: string
-
+        public authorities?: string,
+        public isSelected: boolean = false
     ) {
     }
 }

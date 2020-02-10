@@ -1,3 +1,5 @@
+
+node_modules
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -18,7 +20,6 @@ target/
 *.iws
 *.iml
 *.ipr
-/node_modules
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -30,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+

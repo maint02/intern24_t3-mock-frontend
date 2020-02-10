@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 @Injectable()
-export class ApiService {
+export class EmployeeService {
     constructor(
         private http: HttpClient,
     ) { }

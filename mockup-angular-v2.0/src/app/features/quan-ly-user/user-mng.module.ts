@@ -23,7 +23,8 @@ import {SharedModule} from '../../shared/shared.module';
             {path: '', pathMatch: 'full', redirectTo: 'user-mng'},
             {
                 path: 'user-mng', component: UserMngComponent,
-                data: {breadcrumbs: ['QuanLyUser', '']}
+                data: {breadcrumbs: ['QuanLyUser', '']},
+                children: [{ path: 'insert', component: InsertUpdateUserComponent }]
             }
         ])
     ]
