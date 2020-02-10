@@ -16,6 +16,6 @@ export class AlertService {
 
     public fire(options?: any) {
         const opts = Object.assign(this.default_opts, options);
-        return Swal.fire(opts.title, opts.message, opts.icon);
+        return Swal.fire(opts);
     }
 }

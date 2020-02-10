@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {toggleFilter} from 'src/app/store/navigation';
 import {APP_CONFIG} from 'src/app/app.config';
-import {AccountService} from '../../core/auth/account.service';
-import {Account} from '../../shared/model/user/account.model';
+import {AccountService} from "../../core/auth/account.service";
+import {Account} from "../../shared/model/user/account.model";
 
 @Component({
     selector: 'smart-nav-info-card',

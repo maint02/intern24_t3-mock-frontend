@@ -32,11 +32,11 @@ export class IssueSingleComponent implements OnInit {
       this.issueService.getById(id).subscribe((res: any) => {
         if (res.responseCode === 1) {
           this.issues = res.dataResponse;
-          this.getAllHistoryByIssueId(this.issues.id);
         }
       });
     }
-    this.getAllStatusOfIssue();  
+    this.getAllStatusOfIssue();
+    this.getAllHistoryByIssueId(this.issues.id);
   }
   getAllStatusOfIssue() {
     this.statusService.getByTypeId(1).subscribe((res: any) => {
@@ -46,7 +46,7 @@ export class IssueSingleComponent implements OnInit {
     });
   }
   getAllHistoryByIssueId(issueId: number){
-    this.issueService.getHistoryById(issueId).subscribe((res: any)=>{
+    this.issueService.getHistoryById(4).subscribe((res: any)=>{
       if(res.responseCode===1){
         this.listIssueHistory=res.dataResponse;
         console.log(this.listIssueHistory);

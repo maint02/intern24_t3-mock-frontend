@@ -17,7 +17,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
             {
                 path: '',
                 component: LoginComponent,
-                // canActivate: [LoginRouteAccessService]
+                canActivate: [LoginRouteAccessService]
             }
         ])
     ]

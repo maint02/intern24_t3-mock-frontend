@@ -142,7 +142,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
                         this.toastr.warning('Nhân viên không tồn tại');
                     } else if (data.flag === 'enable') {
                         this.employee = data;
-                        this.addForm.get('inputName').setValue(this.employee.fullName);
+                        this.addForm.get('inputName').setValue(this.employee.emp_name);
                         this.addForm.get('inputJobTitle').setValue(this.employee.job_title);
                         this.disabledAdd = false;
                         this.setFocusName();
@@ -169,7 +169,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
                     this.toastr.warning('Nhân viên không tồn tại');
                 } else if (data.flag === 'enable') {
                     this.employee = data;
-                    this.addForm.get('inputName').setValue(this.employee.fullName);
+                    this.addForm.get('inputName').setValue(this.employee.emp_name);
                     this.addForm.get('inputJobTitle').setValue(this.employee.job_title);
                     this.disabledAdd = false;
                     this.setFocusName();
@@ -217,8 +217,8 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
 
     private convertToApproval(module: any): CauHinhPheDuyetCapQuanLy {
         let approval = new CauHinhPheDuyetCapQuanLy();
-        approval.sb_code = this.employee.username;
-        approval.fullname = this.employee.fullName;
+        approval.sb_code = this.employee.emp_code;
+        approval.fullname = this.employee.emp_name;
         approval.job_title = this.employee.job_title;
         approval.function_name = module.name;
         approval.function_id = module.code;
@@ -226,7 +226,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
     }
 
     private validateForm(): boolean {
-        if (!this.employee || this.employee.fullName === '') {
+        if (!this.employee || this.employee.emp_name === '') {
             return false;
         }
         return true;
@@ -322,7 +322,7 @@ export class CauHinhPheDuyetCapQuanLyComponent implements OnInit {
     private getAccountInfo() {
         this.accountService.identity().subscribe(acc => {
             if (acc) {
-                this.sbCode = acc.username;
+                this.sbCode = acc.emp_code;
             }
         });
     }

@@ -1,6 +1,7 @@
 export const USER_TYPE_AUTHORITIES = {
-    "1": ['MEMBER'],
-    "2": ['MEMBER', 'LEADER'],
-    "3": ['MEMBER', 'LEADER', 'MANAGER'],
-    "4": ['MEMBER', 'LEADER', 'MANAGER', 'HR'],
+    "0": ['ROLE_NHANVIEN'],
+    "2": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    "3": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    "4": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
+    "1": ['ROLE_NHANVIEN', 'ROLE_QUANLY', 'ROLE_HR', 'ROLE_ADMIN'],
 };

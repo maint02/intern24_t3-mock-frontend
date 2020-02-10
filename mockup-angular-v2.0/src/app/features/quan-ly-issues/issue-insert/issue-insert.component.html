@@ -3,19 +3,32 @@
         Thêm một vấn đề
     </h1>
 </div>
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Chọn file Exels</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+</form>
 <div class="panel">
     <div class="card-body">
         <div class="form-group row" style="padding-left: 15px; padding-right: 15px">
             <!-- start row group-->
             <div class="form-group col-md-12">
                 <div class="form-group row">
+
                     <label class="col-md-2 col-sm-6 col-form-label form-label">Chọn Project:</label>
                     <div class="col-md-10 col-sm-6">
-                        <select (change)="handlerProjectIdSelected($event)" class="form-control" id="project">
-                        <option [value]="null"> -- Chọn Project --</option>
+                        <form [formGroup]="addIssueForm">
+                            <select (change)="handlerProjectIdSelected($event)" class="form-control" id="project" style="width: 30%" formControlName="project">
+                        <option value=""> -- Chọn Project --</option>
                         <option *ngFor="let pr of listProject" [value]="pr.id" [selected]="projectIdSelected==pr.id">{{ pr.name }}</option>
                       </select>
+                        </form>
+                        <div *ngIf="addIssueForm.controls.project.invalid && addIssueForm.controls.project.untouched == false">
+                            <div class="text-danger">Project cần được chọn! </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
             <!-- End row group-->
@@ -36,11 +49,29 @@
             </div>
             <!-- End row group-->
             <!-- start row group-->
+
             <div class="form-group col-md-12">
                 <div class="form-group row">
                     <label class="col-md-2 col-sm-6 col-form-label form-label">Tên vấn đề:</label>
                     <div class="col-md-10 col-sm-6">
-                        <input type="text" placeholder="Nhập tên vấn đề" class="form-control" [(ngModel)]="issue.name">
+                        <form [formGroup]="addIssueForm">
+                            <input type="text" placeholder="Nhập tên vấn đề" class="form-control" [(ngModel)]="issue.name" formControlName="name">
+                        </form>
+                        <div *ngIf="addIssueForm.controls.name.invalid && addIssueForm.controls.name.untouched == false">
+                            <div class="text-danger">Tên vấn đề không được trống! </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Mô tả:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <textarea class="form-control" name="" id="" cols="70" rows="7" [(ngModel)]="issue.description" placeholder="Nhập mô tả"></textarea>
                     </div>
                 </div>
             </div>
@@ -56,15 +87,15 @@
             </div>
             <!-- End row group-->
             <!-- start row group-->
-            <div class="form-group col-md-12">
+            <!-- <div class="form-group col-md-12">
                 <div class="form-group row">
                     <label class="col-md-2 col-sm-6 col-form-label form-label">Mô tả:</label>
                     <div class="col-md-10 col-sm-6">
                         <ckeditor [editor]="Editor" (change)="onChange($event)"></ckeditor>
                     </div>
                 </div>
-            </div>
-            <!-- End row group-->
+            </div> -->
+            <!-- End row group -->
             <!-- start row group-->
             <div class="form-group col-md-12">
                 <div class="form-group row">
@@ -83,30 +114,46 @@
             <!-- start row group-->
             <div class="form-group col-md-12">
                 <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Chọn Trạng thái:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select (change)="handlerStatusIdSelected($event)" class="form-control" id="project">
+                        <option [value]="null"> -- Chọn trạng thái --</option>
+                        <option *ngFor="let status of listStatus" [value]="status.id" [selected]="projectIdSelected==status.id">{{ status.name }}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End row group-->
+            <!-- start row group-->
+            <div class="form-group col-md-12">
+                <div class="form-group row">
                     <label class="col-md-2 col-sm-6 col-form-label form-label">Thời gian bắt đầu:</label>
-                    <div class="col-md-3 col-sm-6">
-                        <form>
-                            <div class="form-group">
+                    <div class="col-md-5 col-sm-6">
+                        <div class="form-group">
+                            <form>
                                 <label for="dateOfBirth">Create date</label>
                                 <div class="input-group">
-                                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="startDateChoose">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- End row group-->
+
         </div>
         <div class="form-group row text-center">
             <div class="col-md-12">
-                <button type="button" (click)="doAdd()" class="btn btn-info">
+                <button type="button" (click)="doAdd()" class="btn btn-info" [disabled]="addIssueForm.status == 'INVALID'">
                  Thêm mới
                 </button>
             </div>
         </div>
+
     </div>
 </div>

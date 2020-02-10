@@ -4,6 +4,12 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { IssueModel } from '../model/issue.model';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProjectService} from '../../../core/service/project.service';
+import { StatusService} from '../../../core/service/status.service';
+import { IssueService} from '../../../core/service/issue.service';
+import { StatusModel } from '../model/status.model';
+import { DateFormatter } from 'ngx-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,19 +18,44 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./issue-insert.component.css']
 })
 export class IssueInsertComponent implements OnInit {
-  public apiAllProject = 'http://localhost:8082/api/project/get-All';
+  addIssueForm: FormGroup;
+  submitted = false;
+
   projectIdSelected: number;
   listProject: ProjectModel[] = [];
+  listStatus: StatusModel[] = [];
   public Editor = ClassicEditor;
   issue: IssueModel = new IssueModel;
+  startDateChoose: any ;
   constructor(
-    private http: HttpClient
+    private projectService: ProjectService,
+    private statusService: StatusService,
+    private issueService: IssueService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.http.get(this.apiAllProject).subscribe((res: any) => {
+    this.getAllProject();
+    this.getAllStatusOfIssue(); 
+    this.createForm();
+  }
+  createForm(){
+    this.addIssueForm = this.formBuilder.group({
+      name:  ['', Validators.required],
+      project: ['', Validators.required],
+    });
+  }
+  getAllProject() {
+    this.projectService.getAll().subscribe((res: any) => {
       if (res.responseCode === 1) {
         this.listProject = res.dataResponse;
+      }
+    });
+  }
+  getAllStatusOfIssue() {
+    this.statusService.getByTypeId(1).subscribe((res: any) => {
+      if (res.responseCode === 1) {
+        this.listStatus = res.dataResponse;
       }
     });
   }
@@ -32,17 +63,44 @@ export class IssueInsertComponent implements OnInit {
     console.log(event.target.value);
     this.issue.projectId = event.target.value;
   }
-  doAdd(){
+  doAdd() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.addIssueForm.invalid) {
+        return;
+    }
+    console.log(this.startDateChoose);
+    const date = new Date(this.startDateChoose.year,
+    this.startDateChoose.month - 1, this.startDateChoose.day + 1).toISOString();
+    this.issue.startDate = date;
+    this.issue.employeeReportedId = 1;
+    this.issue.dueDate = 0;
+    this.issue.donePercent = 0;
+    this.issueService.add(this.issue).subscribe((res: any) => {
+      if (res.responseCode === 1) {
+        console.log('thêm thành công!');
+        alert('thêm thành công!');
+        window.location.reload();
+      } else {
+        console.log('thêm thất bại');
+      }
+    });
     console.log(this.issue);
   }
-   onChange( { editor }: ChangeEvent ) {
-    this.issue.description= editor.getData();
-    console.log(editor.getData());
-  }
-  handlerTypeSelected(event: any){
+  //  onChange( { editor }: ChangeEvent ) {
+  //   this.issue.description = editor.getData();
+  //   console.log(editor.getData());
+  // }
+  handlerTypeSelected(event: any) {
    this.issue.type = event.target.value;
   }
-  handlerPrioritySelected(event: any){
+  handlerPrioritySelected(event: any) {
   this.issue.priority = event.target.value;
+  }
+  handlerStatusIdSelected(event: any) {
+  this.issue.statusId = event.target.value;
+  }
+  handlerDate(){
+    
   }
 }
