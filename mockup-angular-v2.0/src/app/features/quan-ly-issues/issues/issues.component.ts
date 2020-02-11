@@ -28,7 +28,7 @@ export class IssuesComponent implements OnInit, OnChanges {
   issues: IssueModel[] = [];
   issueSearchDto: IssueModel = new IssueModel();
   pageNumber: any;
-  limit = 5;
+  limit = 3;
   page: any = 1;
   pageOption: any = {
     pageSize: 1,

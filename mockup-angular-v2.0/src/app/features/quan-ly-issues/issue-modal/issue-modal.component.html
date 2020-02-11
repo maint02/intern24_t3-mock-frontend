@@ -74,7 +74,7 @@
             </div>
         </div>
         <!-- End row group-->
-        <button ngbAutofocus type="button" class="btn btn-info btn-sm m-3" (click)="doAssignIssue()">Assign</button>
+        <button ngbAutofocus type="button" class="btn btn-info btn-sm m-3" (click)="doAssignIssue()" [disabled]="empIdSelected==null">Assign</button>
     </ng-template>
 </div>
 <div class="modal-footer">

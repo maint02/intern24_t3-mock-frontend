@@ -29,14 +29,25 @@ export class IssueModalComponent implements OnInit {
     this.getMemberByProjectId(this.issues.projectId);
   }
   doAssignIssue() {
-    this.employeeIssue.issueId=this.issues.id;
-    this.employeeIssue.employeeId=this.empIdSelected;
-    console.log(this.employeeIssue);
-    this.EmpIssueService.save(this.employeeIssue).subscribe((res: any)=>{
+    const check: boolean = confirm('bạn giao issue cho user:' + this.empIdSelected);
+    if (check) {
+      this.employeeIssue.issueId = this.issues.id;
+      this.employeeIssue.employeeId = this.empIdSelected;
+      this.employeeIssue.statusId = 1;
+      this.employeeIssue.employeeAssignedId = 1;
+      console.log(this.employeeIssue);
+      this.EmpIssueService.save(this.employeeIssue).subscribe((res: any) => {
       if (res.responseCode === 1) {
         alert('assign issue thành công!');
+        this.activeModal.close();
+      } else {
+        alert('đã giao cho nhân viên này rồi ');
+        this.activeModal.close();
       }
     });
+    } else {
+      console.log('thôi giao việc');
+    }
   }
 
   getMemberByProjectId(id: number) {
@@ -46,7 +57,7 @@ export class IssueModalComponent implements OnInit {
       }
     });
   }
-  handlerEmpIdSelected(event: any){
+  handlerEmpIdSelected(event: any) {
     console.log(event.target.value);
     this.empIdSelected = event.target.value;
   }
