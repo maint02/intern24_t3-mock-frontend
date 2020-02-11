@@ -23,12 +23,6 @@ import { IssueSingleComponent } from './issue-single/issue-single.component';
     ReactiveFormsModule,
     CKEditorModule,
     RouterModule.forChild([
-      // { path: '', pathMatch: 'full', redirectTo: 'issues-manager', },
-      // {
-      //   path: 'issue-mng',
-      //   component: IssuesMngComponent,
-      //   children: [{ path: 'list-by-project/:projectId', component: ListIssuesComponent }]
-      // },
       {
         path: '',
         component: IssueMngComponent,

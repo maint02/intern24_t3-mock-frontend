@@ -9,4 +9,5 @@ export class IssueHistoryModel {
     public donePercentNew: number;
     public statusOld: number;
     public statusNew: number;
+    public updatePersonName: string;
 }
