@@ -13,8 +13,8 @@ import { IssueHistoryModel } from '../model/issueHistory.model';
   styleUrls: ['./issue-single.component.css']
 })
 export class IssueSingleComponent implements OnInit {
-  issues: IssueModel = new IssueModel;
-  issueUpdate: IssueUpdateModel =new IssueUpdateModel;
+  issues: IssueModel = new IssueModel();
+  issueUpdate: IssueUpdateModel = new IssueUpdateModel();
   listIssueHistory: IssueHistoryModel[] =[];
   isUpdateClick = false;
   showHistory = false;

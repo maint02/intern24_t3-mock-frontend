@@ -60,7 +60,7 @@
     </button>
 <table class="table table-striped">
     <thead>
-        <tr class='text-white color-table'>
+        <tr class='text-white bg-info'>
             <th scope="col">
                 <input type="checkbox" [value]="true" style="width: 15px; height: 15px;" [(ngModel)]="issueMasterSelected" (change)="checkUncheckAll()" />
             </th>
@@ -87,15 +87,18 @@
             <td>{{ item.type }}</td>
             <td>{{ item.priority }}</td>
             <td>{{ item.statusName }}</td>
-            <td style="min-width:170px;">
+            <td style="min-width:200px;">
                 <!-- <button class="btn btn-sm btn-info" (click)="openModal('xem', item.id)">
               Xem
             </button> -->
                 <button class="btn btn-sm btn-info" [routerLink]="[ '/quan-ly-issues/view-issue', item.id ]">
               Xem
             </button>
-                <button class="btn btn-sm btn-warning ml-3" (click)="openModal('sua', item.id)">
+                <!-- <button class="btn btn-sm btn-warning ml-3" (click)="openModal('sua', item.id)">
               Sửa
+            </button> -->
+                <button class="btn btn-sm btn-warning ml-3" (click)="openModal('giao', item.id)">
+              Assign to
             </button>
             </td>
         </tr>

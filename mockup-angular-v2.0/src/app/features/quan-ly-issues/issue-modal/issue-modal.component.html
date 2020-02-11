@@ -1,39 +1,84 @@
-<div class="modal-header">
-  <div *ngIf="action === 'xem'">
-    <h4 class="modal-title">View Issue</h4>
-  </div>
-  <div *ngIf="action === 'sua'">
-    <h4 class="modal-title">Edit Issue</h4>
-  </div>
+<div class="modal-header bg-info">
+    <div *ngIf="action === 'xem'">
+        <h4 class="modal-title">View Issue</h4>
+    </div>
+    <div *ngIf="action === 'sua'">
+        <h4 class="modal-title">Edit Issue</h4>
+    </div>
+    <div *ngIf="action === 'giao'">
+        <h4 class="modal-title">Assign Issue</h4>
+    </div>
 </div>
 <div class="modal-body">
-  <p>thông tin issues</p>
-  <div *ngIf="action==='xem';else elseBlock">
-  <input class="form-control" [(ngModel)] = "issues.id" disabled>
-  <input class="form-control" [(ngModel)] = "issues.name" disabled >
-  <input class="form-control" [(ngModel)] = "issues.donePercent" disabled>
-  <input class="form-control" [(ngModel)] = "issues.startDate" disabled>
-  <input class="form-control" [(ngModel)] = "issues.priority" disabled >
-  <input class="form-control" [(ngModel)] = "issues.type" disabled>
-</div>
-<ng-template #elseBlock>
-  <div class="form-group">
-    <input class="form-control" [ngModel] = "issues.id" >
-  <input class="form-control" [ngModel] = "issues.name"  >
-  <input class="form-control" [ngModel] = "issues.donePercent" >
-  <input class="form-control" [ngModel] = "issues.startDate" >
-  <input class="form-control" [ngModel] = "issues.priority"  >
-  <input class="form-control" [ngModel] = "issues.type" >
-  </div>
-  <button ngbAutofocus type="button" class="btn btn-primary" (click)="updateIssue(issues.id)">Update</button>
-</ng-template>
+    <div *ngIf="action==='xem';else elseBlock">
+        <input class="form-control" [(ngModel)]="issues.id" disabled>
+        <input class="form-control" [(ngModel)]="issues.name" disabled>
+        <input class="form-control" [(ngModel)]="issues.donePercent" disabled>
+        <input class="form-control" [(ngModel)]="issues.startDate" disabled>
+        <input class="form-control" [(ngModel)]="issues.priority" disabled>
+        <input class="form-control" [(ngModel)]="issues.type" disabled>
+    </div>
+    <ng-template #elseBlock>
+        <div class="panel">
+            <div class="card-body">
+                <h3 class="font-weight-bold"> #{{ issues.id }}: {{ issues.name }}</h3>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold">Ngày bắt đầu: </label>
+                        <p>{{ issues.startDate }}</p>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold">Mức độ: </label>
+                        <p>{{ issues.priority }}</p>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold">Số giờ: </label>
+                        <p>{{ issues.dueDate }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold">Loại vấn đề: </label>
+                        <p>{{ issues.type }}</p>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold"> * Trạng thái: </label>
+                        <p>{{ issues.statusName }}</p>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="mr-3 font-weight-bold">* Tiến độ: </label>
+                        <p>{{ issues.donePercent }} %</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <label class="mr-3 font-weight-bold">Mô tả: </label>
+                        <p>{{ issues.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start row group-->
+        <div class="panel">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-md-2 col-sm-6 col-form-label form-label">Employee Choose:</label>
+                    <div class="col-md-10 col-sm-6">
+                        <select class="form-control" (change)="handlerEmpIdSelected($event)">
+                        <option [value]="null"> --Chọn Member--</option>
+                        <option [value]="item.id" *ngFor="let item of employeeOfProjectSelected">
+                             {{item.username}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End row group-->
+        <button ngbAutofocus type="button" class="btn btn-info btn-sm m-3" (click)="doAssignIssue()">Assign</button>
+    </ng-template>
 </div>
 <div class="modal-footer">
-  <button
-    type="button"
-    class="btn btn-outline-dark"
-    (click)="activeModal.close('Close click')"
-  >
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
     Close
   </button>
 </div>

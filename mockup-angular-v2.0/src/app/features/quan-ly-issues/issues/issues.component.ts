@@ -26,7 +26,7 @@ export class IssuesComponent implements OnInit, OnChanges {
   issueCheckedList: any;
   issueMasterSelected = false;
   issues: IssueModel[] = [];
-  issueSearchDto: IssueModel = new IssueModel;
+  issueSearchDto: IssueModel = new IssueModel();
   pageNumber: any;
   limit = 5;
   page: any = 1;
@@ -46,7 +46,8 @@ export class IssuesComponent implements OnInit, OnChanges {
       if (res.responseCode === 1) {
         this.listProject = res.dataResponse;
         this.pageOption.totalRows = 0;
-        // this.projectIdSelected = this.listProject[0].id;
+        this.projectIdSelected = this.listProject[0].id;
+        this.doSearch1(); // khởi tạo search luôn theo idproject đầu tiên
       }
     });
     // hàm checkDataRouterForSearch: kiểm tra url xem có page và id truyền vào không để gọi api
