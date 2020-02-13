@@ -11,9 +11,10 @@ import { IssueInsertComponent } from './issue-insert/issue-insert.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { IssueMngComponent } from './issue-mng.component';
 import { IssueSingleComponent } from './issue-single/issue-single.component';
+import { UploadDemoComponent } from './upload-demo/upload-demo.component';
 
 @NgModule({
-  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent, IssueMngComponent, IssueSingleComponent],
+  declarations: [IssuesComponent, IssueModalComponent, IssueInsertComponent, IssueMngComponent, IssueSingleComponent, UploadDemoComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -32,6 +33,7 @@ import { IssueSingleComponent } from './issue-single/issue-single.component';
           { path: 'list-issue', component: IssuesComponent},
           { path: 'add-issue', component: IssueInsertComponent },
           { path: 'view-issue/:issueId', component: IssueSingleComponent },
+          { path: 'upload', component: UploadDemoComponent },
         ]
       },
     ])

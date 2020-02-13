@@ -32,6 +32,11 @@ export const NavigationItems = [
                         tags: 'Thêm mới/sửa/xóa Issues',
                         routerLink: '/quan-ly-issues/add-issue',
                     },
+                    {
+                        title: 'Upload Ảnh',
+                        tags: 'Thêm mới/sửa/xóa Issues',
+                        routerLink: '/quan-ly-issues/upload',
+                    },
                 ]
             },
 
