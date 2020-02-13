@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FileService} from '../../../core/service/file.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FileService } from '../../../core/service/file.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -9,38 +9,50 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UploadDemoComponent implements OnInit {
   imageToShow: any;
+  nameFile: any;
+  fileList: FileList;
   constructor(
     private fileService: FileService,
     private sanitizer: DomSanitizer
-  ) { }
-
-  ngOnInit() {
+  ) {}
+  ngOnInit() {}
+  onUpload() {
+    this.saveFile(this.fileList[0]);
   }
-  onSubmit() {}
   fileChange(event: any) {
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      console.log(fileList[0]);
-      this.saveFile(fileList[0]);
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.previewImages(this.fileList[0]);
+    }
   }
-}
-    saveFile(file: File) {
-       const formData: FormData = new FormData();
-       formData.append('file', file, file.name);
-       console.log(formData);
-       this.fileService.uploadAndGetFile(formData).subscribe((res: any) => {
+  saveFile(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    this.fileService.uploadFile(formData).subscribe((res: any) => {
+      if (res.responseCode === 1) {
+        console.log(res.responseCode);
+        alert('upload file thành công!');
+      } else {
+        alert('upload file thất bại!');
+      }
+    });
+  }
+  previewImages(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+      this.imageToShow = reader.result;
+    };
+  }
+  getFile(name: string) {
+    this.fileService.getFileByName(name).subscribe((res: any) => {
+      if (res != null) {
         const objectURL = URL.createObjectURL(res);
         this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        console.log(this.imageToShow);
-        // const reader = new FileReader();
-        // reader.addEventListener('load', () => {
-        // this.imageToShow = reader.result;
-        // }, false);
-        // if (res) {
-        // reader.readAsDataURL(res);
-        //         }
-        //         console.log(this.imageToShow);
-          });
-    }
-
+      }
+    });
+  }
+  onGetFile(){
+    this.getFile(this.nameFile);
+  }
 }
