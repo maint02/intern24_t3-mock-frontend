@@ -6,6 +6,7 @@ import { StatusService} from '../../../core/service/status.service';
 import { StatusModel } from '../model/status.model';
 import { IssueUpdateModel } from '../model/issueUpdate.model';
 import { IssueHistoryModel } from '../model/issueHistory.model';
+import { FileService} from '../../../core/service/file.service';
 
 @Component({
   selector: 'smart-issue-single',
@@ -15,15 +16,18 @@ import { IssueHistoryModel } from '../model/issueHistory.model';
 export class IssueSingleComponent implements OnInit {
   issues: IssueModel = new IssueModel();
   issueUpdate: IssueUpdateModel = new IssueUpdateModel();
-  listIssueHistory: IssueHistoryModel[] =[];
+  listIssueHistory: IssueHistoryModel[] = [];
   isUpdateClick = false;
   showHistory = false;
-  listDonePercent: number [] = [10,20,30,40,50,60,70,80,90,100];
+  listDonePercent: number [] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   listStatus: StatusModel[] = [];
+  imageToPreview: any;
+  fileList: FileList;
   constructor(
     private issueService: IssueService,
     private route: ActivatedRoute,
     private statusService: StatusService,
+    private fileService: FileService
     ) {}
 
   ngOnInit() {
@@ -45,10 +49,10 @@ export class IssueSingleComponent implements OnInit {
       }
     });
   }
-  getAllHistoryByIssueId(issueId: number){
-    this.issueService.getHistoryById(issueId).subscribe((res: any)=>{
-      if(res.responseCode===1){
-        this.listIssueHistory=res.dataResponse;
+  getAllHistoryByIssueId(issueId: number) {
+    this.issueService.getHistoryById(issueId).subscribe((res: any) => {
+      if (res.responseCode === 1) {
+        this.listIssueHistory = res.dataResponse;
         console.log(this.listIssueHistory);
       }
     });
@@ -60,10 +64,13 @@ export class IssueSingleComponent implements OnInit {
     this.isUpdateClick = false;
   }
   doUpdate() {
-    this.issueUpdate.id=this.issues.id;
-    this.issueUpdate.updatePersonId= 1; //id employee fix cứng/
+    this.issueUpdate.id = this.issues.id;
+    this.issueUpdate.updatePersonId = 1; // id employee fix cứng/
+    if (this.saveFile(this.fileList[0])) { // lưu ảnh thành công thì gán cho tên ảnh vào issue
+      this.issueUpdate.imageName = this.fileList[0].name;
+    }
     console.log(this.issueUpdate);
-    this.issueService.update(this.issueUpdate).subscribe((res=>{
+    this.issueService.update(this.issueUpdate).subscribe((res => {
       if (res.responseCode === 1) {
         alert('cập nhật thành công!');
         this.isUpdateClick = false;
@@ -84,6 +91,33 @@ export class IssueSingleComponent implements OnInit {
     this.issueUpdate.statusId = event.target.value;
   }
   handlerPercentSelected(event: any) {
-    this.issueUpdate.donePercent= event.target.value;
+    this.issueUpdate.donePercent = event.target.value;
+  }
+  previewImages(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+      this.imageToPreview = reader.result;
+    };
+  }
+  fileChange(event: any) {
+    this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      this.previewImages(this.fileList[0]);
+    }
+  }
+  saveFile(file: File): boolean {
+    let kq = true;
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    this.fileService.uploadFile(formData).subscribe((res: any) => {
+      if (res.responseCode === 1) {
+        console.log('upload file thành công!');
+      } else {
+        console.log('upload file thất bại!');
+        kq = false;
+      }
+    });
+    return kq;
   }
 }

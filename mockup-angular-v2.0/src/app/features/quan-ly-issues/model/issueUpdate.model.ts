@@ -9,4 +9,6 @@ export class IssueUpdateModel {
     public  statusId?: number;
 
     public updatePersonId: number;
+
+    public imageName: string;
 }

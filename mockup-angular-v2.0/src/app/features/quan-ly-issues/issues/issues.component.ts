@@ -51,7 +51,7 @@ export class IssuesComponent implements OnInit, OnChanges {
       }
     });
     // hàm checkDataRouterForSearch: kiểm tra url xem có page và id truyền vào không để gọi api
-    //this.checkDataRouterForSearch(this.route);
+    // this.checkDataRouterForSearch(this.route);
   }
   ngOnChanges() {
     console.log('===== ngOnChanges');

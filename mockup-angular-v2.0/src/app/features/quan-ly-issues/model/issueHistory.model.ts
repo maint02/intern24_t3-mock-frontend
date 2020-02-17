@@ -10,4 +10,5 @@ export class IssueHistoryModel {
     public statusOld: number;
     public statusNew: number;
     public updatePersonName: string;
+    public imageName: string;
 }

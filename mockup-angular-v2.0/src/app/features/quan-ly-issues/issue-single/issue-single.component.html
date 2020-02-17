@@ -69,6 +69,10 @@
                             <label>Ghi chú: </label>
                             <p>{{ item.comments }}</p>
                         </div>
+                        <div class="ml-3 col-md-12">
+                            <label>Ảnh: </label>
+                            <img [src]="'http://localhost:8083/api/file/get-file/'+item.imageName" alt="" width="500px">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,6 +115,17 @@
                 <div class="col-md-12">
                     <label class="mr-3 font-weight-bold">Ghi chú: </label>
                     <textarea class="form-control" name="" id="" cols="70" rows="7" placeholder="Nhập ghi chú" [(ngModel)]="issueUpdate.comments"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="mr-3 font-weight-bold">Ảnh mô tả: </label>
+                    <input type="file" (change)="fileChange($event)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img [src]="imageToPreview" alt="Place image title" style="justify-content: center; max-width: 700px;" *ngIf="imageToPreview!=null">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary mb-3 mr-3 mt-3" (click)="doUpdate()">

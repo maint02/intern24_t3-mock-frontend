@@ -47,12 +47,14 @@ export class UploadDemoComponent implements OnInit {
   getFile(name: string) {
     this.fileService.getFileByName(name).subscribe((res: any) => {
       if (res != null) {
+        console.log(res);
         const objectURL = URL.createObjectURL(res);
         this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        console.log(this.imageToShow);
       }
     });
   }
-  onGetFile(){
+  onGetFile() {
     this.getFile(this.nameFile);
   }
 }

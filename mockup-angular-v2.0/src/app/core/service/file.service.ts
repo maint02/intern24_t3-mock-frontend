@@ -15,7 +15,7 @@ export class FileService {
             return throwError(err);
         }));
     }
-    getFileByName(name: string) : Observable<any> {
+    getFileByName(name: string): Observable<any> {
         return this.http.get(`${environment.api_url}/file/get-file/${name}`, { responseType: 'blob' })
         .pipe(catchError(err => {
             return throwError(err);
