@@ -10,6 +10,7 @@ import { IssueService} from '../../../core/service/issue.service';
 import { StatusModel } from '../model/status.model';
 import { DateFormatter } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FileService} from '../../../core/service/file.service';
 
 
 @Component({
@@ -20,26 +21,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class IssueInsertComponent implements OnInit {
   addIssueForm: FormGroup;
   submitted = false;
-
   projectIdSelected: number;
   listProject: ProjectModel[] = [];
   listStatus: StatusModel[] = [];
   public Editor = ClassicEditor;
-  issue: IssueModel = new IssueModel;
+  issue: IssueModel = new IssueModel();
+  fileList: FileList;
+
   startDateChoose: any ;
   constructor(
     private projectService: ProjectService,
     private statusService: StatusService,
     private issueService: IssueService,
     private formBuilder: FormBuilder,
+    private fileService: FileService
   ) { }
 
   ngOnInit() {
     this.getAllProject();
-    this.getAllStatusOfIssue(); 
+    this.getAllStatusOfIssue();
     this.createForm();
   }
-  createForm(){
+  createForm() {
     this.addIssueForm = this.formBuilder.group({
       name:  ['', Validators.required],
       project: ['', Validators.required],
@@ -100,7 +103,29 @@ export class IssueInsertComponent implements OnInit {
   handlerStatusIdSelected(event: any) {
   this.issue.statusId = event.target.value;
   }
-  handlerDate(){
-    
+  handlerDate() {
+  }
+  xulyFile(event: any) {
+    const file: File = event.target.files[0];
+    if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+      this.fileList = event.target.files;
+    } else {
+      alert('Cần phải chọn file exel để Import');
+      this.fileList=null;
+      event.target.value = null;
+    }
+  }
+  saveFileExel() {
+    const file: File = this.fileList[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    this.fileService.uploadIssueFromFileExel(formData).subscribe((res: any) => {
+      if (res.responseCode === 1 || res.responseCode === 2) {
+        console.log(res);
+        alert(res.message);
+      } else {
+        alert('có lỗi không xác định!');
+      }
+    });
   }
 }

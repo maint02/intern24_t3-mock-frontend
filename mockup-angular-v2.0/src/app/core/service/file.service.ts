@@ -27,4 +27,10 @@ export class FileService {
             return throwError(err);
         }));
     }
+    uploadIssueFromFileExel(fileData: FormData): Observable<any> {
+        return this.http.post(`${environment.api_url}/issue/add-by-exel`, fileData)
+        .pipe(catchError(err => {
+            return throwError(err);
+        }));
+    }
 }

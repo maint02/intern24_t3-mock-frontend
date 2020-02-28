@@ -3,6 +3,9 @@
         Thêm một vấn đề
     </h1>
 </div>
+<label class="col-md-2 col-sm-6 col-form-label form-label">Upload file exel:</label>
+<input type="file" (change)="xulyFile($event)">
+<button class="btn btn-info" (click)="saveFileExel()" [disabled]="fileList==null">Upload File</button>
 <div class="panel">
     <div class="card-body">
         <div class="form-group row" style="padding-left: 15px; padding-right: 15px">
